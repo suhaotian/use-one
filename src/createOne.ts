@@ -7,7 +7,7 @@ function getID() {
   return `${ID}`;
 }
 
-let eventBus: eventemitter3;
+export let eventBus: eventemitter3;
 
 /** @todo Why so many Readonly? */
 export function createOne<T>(
@@ -30,7 +30,7 @@ export function createOne<T>(
 
   const setState = (newValue: Readonly<T>) => {
     _state = newValue;
-    eventBus.emit(EVENT_NAME, _state);
+    eventBus?.emit(EVENT_NAME, _state);
   };
 
   function useOne(): [Readonly<T>, (newValue: Readonly<T>) => void] {
