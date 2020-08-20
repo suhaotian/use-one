@@ -1,37 +1,99 @@
-## Welcome to GitHub Pages
+## use-one
 
-You can use the [editor on GitHub](https://github.com/suhaotian/use-one/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+**Features**
 
-### Markdown
+- ease share state
+- tiny size
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Install
 
-```markdown
-Syntax highlighted code block
+**npm**
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+npm install use-one --save
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+**yarn**
 
-### Jekyll Themes
+```bash
+yarn add use-one
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/suhaotian/use-one/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Usage
 
-### Support or Contact
+**Create one hook**
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+```ts
+// useCount.ts
+import { createOne } from "use-one";
+
+const initailState = { count: 0 };
+
+type CountState = typeof initailState;
+
+const [useCount, countStore] = createOne<CountStateType>(initialState);
+
+export { useCount, countStore };
+
+export const actions = {
+  increment: () => {
+    countStare.setState({ count: countStare.getState().count + 1 });
+  },
+  decrement: () => {
+    countStare.setState({ count: countStare.getState().count - 1 });
+  },
+};
+```
+
+**Use the hook**
+
+```tsx
+// CountExample.tsx
+import { useCount, countStore } from "./useCount";
+
+const Counter = () => {
+  const [countState, setCountState] = useCount();
+
+  const { count } = countState;
+
+  return (
+    <div>
+      <button onClick={actions.increment}>+1</button>
+      <span>{count}</span>
+      <button onClick={actions.decrement}>-1</button>
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            setCountState({
+              count: count + 2,
+            });
+          }, 2000);
+        }}>
+        async +2
+      </button>
+    </div>
+  );
+};
+
+const ShowCountInOtherPlace = () => {
+  const [countState] = useCount();
+  const { count } = countState;
+
+  return <span>Count: {count}</span>;
+};
+
+export default function App() {
+  return (
+    <Fragment>
+      <ShowCount />
+      <Counter />
+    </Fragment>
+  );
+}
+```
+
+#### Dependencies
+
+- [eventemitter3](https://github.com/primus/eventemitter3)
