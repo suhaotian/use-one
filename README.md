@@ -21,7 +21,7 @@ npm install use-one --save
 yarn add use-one
 ```
 
-## UMD
+**UMD**
 
 jsdeliver
 
