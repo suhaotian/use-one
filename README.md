@@ -47,7 +47,7 @@ export const actions = {
 };
 ```
 
-**Use the useCount hook**
+**Use the hook**
 
 ```tsx
 // CountExample.tsx
@@ -99,7 +99,7 @@ export default function App() {
 
 - [ ] unit tests
 - [ ] performance benchmark test
-- [ ] publish to npm
+- [x] publish to npm
 - [ ] vue support
 - [ ] svelte support
 - [ ] offical website and documention
