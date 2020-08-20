@@ -21,6 +21,17 @@ npm install use-one --save
 yarn add use-one
 ```
 
+## UMD
+
+jsdeliver
+
+```html
+<script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
+<script src="https://unpkg.com/use-one@0.2.0/dist/useone.umd.production.min.js"></script>
+```
+
+Browser Namespace: UseOne.createOne
+
 ## Usage
 
 **Create one hook**

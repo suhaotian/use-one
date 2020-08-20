@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "author": "suhaotian",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build --format cjs,esm,umd --name UseOne",
     "test": "tsdx test --env=jsdom",
     "lint": "tsdx lint"
   },
