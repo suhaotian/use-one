@@ -40,9 +40,9 @@ Browser Namespace: UseOne.createOne
 // useCount.ts
 import { createOne } from 'use-one';
 
-const initailState = { count: 0 };
+const initialState = { count: 0 };
 
-type CountState = typeof initailState;
+type CountState = typeof initialState;
 
 const [useCount, countStore] = createOne<CountStateType>(initialState);
 
@@ -50,10 +50,10 @@ export { useCount, countStore };
 
 export const actions = {
   increment: () => {
-    countStare.setState({ count: countStare.getState().count + 1 });
+    countStore.setState({ count: countStore.getState().count + 1 });
   },
   decrement: () => {
-    countStare.setState({ count: countStare.getState().count - 1 });
+    countStore.setState({ count: countStore.getState().count - 1 });
   },
 };
 ```
@@ -62,7 +62,7 @@ export const actions = {
 
 ```tsx
 // CountExample.tsx
-import { useCount, countStore } from './useCount';
+import { useCount, actions } from './useCount';
 
 const Counter = () => {
   const [countState, setCountState] = useCount();
