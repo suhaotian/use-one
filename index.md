@@ -1,13 +1,9 @@
-## use-one
-
-[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app.
-
 **Features**
 
 - ease share state
 - tiny size
 
-### Install
+## Install
 
 **npm**
 
@@ -21,7 +17,7 @@ npm install use-one --save
 yarn add use-one
 ```
 
-### Usage
+## Usage
 
 **Create one hook**
 
@@ -31,7 +27,7 @@ import { createOne } from "use-one";
 
 const initialState = { count: 0 };
 
-type CountState = typeof initialState;
+type CountStateType = typeof initialState;
 
 const [useCount, countStore] = createOne<CountStateType>(initialState);
 
@@ -51,9 +47,10 @@ export const actions = {
 
 ```tsx
 // CountExample.tsx
+import * as React from "react";
 import { useCount, countStore, actions } from "./useCount";
 
-const Counter = () => {
+const CountExample = () => {
   const [countState, setCountState] = useCount();
 
   const { count } = countState;
@@ -87,12 +84,21 @@ const ShowCountInOtherPlace = () => {
 export default function App() {
   return (
     <Fragment>
-      <ShowCount />
-      <Counter />
+      <ShowCountInOtherPlace />
+      <CountExample />
     </Fragment>
   );
 }
 ```
+
+### Online Example
+
+<iframe src="https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="hidden-hooks-i4z28"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 #### Dependencies
 
