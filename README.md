@@ -14,13 +14,13 @@
 **npm**
 
 ```bash
-npm install use-one --save
+npm install use-one eventemitter3 --save
 ```
 
 **yarn**
 
 ```bash
-yarn add use-one
+yarn add use-one eventemitter3
 ```
 
 **UMD**
