@@ -25,7 +25,7 @@ yarn add use-one eventemitter3
 
 **UMD**
 
-jsdeliver
+CDN
 
 ```html
 <script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
