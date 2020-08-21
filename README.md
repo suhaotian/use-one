@@ -81,7 +81,7 @@ const Counter = () => {
         onClick={() => {
           setTimeout(() => {
             setCountState({
-              count: count + 2,
+              count: countStore.getState().count + 2,
             });
           }, 2000);
         }}
