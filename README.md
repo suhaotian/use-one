@@ -1,6 +1,6 @@
 # use-one
 
-[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app.
+[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app. [Online Demo (CodeSandbox)](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
 
 **Features**
 
@@ -62,6 +62,7 @@ export const actions = {
 
 ```tsx
 // CountExample.tsx
+import * as React from 'react';
 import { useCount, actions } from './useCount';
 
 const Counter = () => {
@@ -98,10 +99,10 @@ const ShowCountInOtherPlace = () => {
 
 export default function App() {
   return (
-    <Fragment>
+    <React.Fragment>
       <ShowCount />
       <Counter />
-    </Fragment>
+    </React.Fragment>
   );
 }
 ```
