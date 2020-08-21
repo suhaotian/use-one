@@ -44,7 +44,7 @@ import { createOne } from 'use-one';
 
 const initialState = { count: 0 };
 
-type CountState = typeof initialState;
+type CountStateType = typeof initialState;
 
 const [useCount, countStore] = createOne<CountStateType>(initialState);
 
