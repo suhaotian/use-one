@@ -1,6 +1,8 @@
 # use-one
 
-[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app. [Online Demo (CodeSandbox)](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
+[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app.
+
+[Online Demo (CodeSandbox)](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
 
 **Features**
 
