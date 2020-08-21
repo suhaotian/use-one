@@ -109,6 +109,10 @@ export default function App() {
 }
 ```
 
+## API
+
+- `createOne` Function `createOne<Type>(initialState: Type)`
+
 ### Todos
 
 - [ ] unit tests
