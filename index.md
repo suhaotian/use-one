@@ -103,3 +103,12 @@ export default function App() {
 #### Dependencies
 
 - [eventemitter3](https://github.com/primus/eventemitter3)
+
+
+<style>
+.project-tagline {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
