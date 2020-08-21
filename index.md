@@ -107,7 +107,7 @@ export default function App() {
 
 <style>
 .project-tagline {
-  max-width: 600px;
+  max-width: 820px;
   margin-left: auto;
   margin-right: auto;
 }
