@@ -10,15 +10,15 @@ function getID() {
 export let eventBus: eventemitter3;
 
 export function createOne<T>(
-  initialState: Readonly<T> | (() => Readonly<T>)
+  initialState: Readonly<T>
 ): [
   /** Why so many Readonly here... */
-  () => [Readonly<T> | (() => Readonly<T>), (newValue: Readonly<T>) => void],
+  () => [Readonly<T>, (newValue: Readonly<T>) => void],
   {
-    getState: () => Readonly<T> | (() => Readonly<T>);
-    setState: (newValue: Readonly<T> | (() => Readonly<T>)) => void;
+    getState: () => Readonly<T>;
+    setState: (newValue: Readonly<T>) => void;
     subscribe: (
-      cb: (state: Readonly<T> | (() => Readonly<T>)) => void
+      cb: (state: Readonly<T>) => void
     ) => () => void;
   }
 ] {
@@ -30,14 +30,14 @@ export function createOne<T>(
 
   let _state = initialState;
 
-  const setState = (newValue: Readonly<T> | (() => Readonly<T>)) => {
+  const setState = (newValue: Readonly<T>) => {
     _state = newValue;
     eventBus?.emit(EVENT_NAME, _state);
   };
 
   function useOne(): [
-    Readonly<T> | (() => Readonly<T>),
-    (newValue: Readonly<T> | (() => Readonly<T>)) => void
+    Readonly<T>,
+    (newValue: Readonly<T>) => void
   ] {
     const updateCountRef = useRef(0);
     const [, setUpdateCount] = useState(0);
@@ -58,7 +58,7 @@ export function createOne<T>(
   const store = {
     getState: () => _state,
     setState,
-    subscribe: (cb: (state: Readonly<T> | (() => Readonly<T>)) => void) => {
+    subscribe: (cb: (state: Readonly<T>) => void) => {
       eventBus.on(EVENT_NAME, cb);
       return () => {
         eventBus.off(EVENT_NAME, cb);
