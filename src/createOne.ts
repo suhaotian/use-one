@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
 
 let ID = 0;
@@ -26,6 +26,7 @@ export function createOne<T>(
 
   const EVENT_NAME = getID();
 
+  let updateCountRef = 0;
   let _state = initialState;
 
   const setState = (newValue: Readonly<T>) => {
@@ -34,16 +35,17 @@ export function createOne<T>(
   };
 
   function useOne(): [Readonly<T>, (newValue: Readonly<T>) => void] {
-    const updateCountRef = useRef(0);
     const [, setUpdateCount] = useState(0);
 
     useEffect(() => {
       function updater() {
-        setUpdateCount(++updateCountRef.current);
+        setUpdateCount(++updateCountRef);
       }
       eventBus.on(EVENT_NAME, updater);
+
       return () => {
         eventBus.off(EVENT_NAME, updater);
+        updateCountRef = 0;
       };
     }, []);
 
