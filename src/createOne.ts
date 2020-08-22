@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import eventemitter3 from 'eventemitter3';
 
 let ID = 0;
@@ -39,18 +39,18 @@ export function createOne<T>(
     Readonly<T> | (() => Readonly<T>),
     (newValue: Readonly<T> | (() => Readonly<T>)) => void
   ] {
-    const [updateCount, setUpdateCount] = useState(0);
+    const updateCountRef = useRef(0);
+    const [, setUpdateCount] = useState(0);
 
     useEffect(() => {
       function updater() {
-        setUpdateCount(updateCount + 1);
+        setUpdateCount(++updateCountRef.current);
       }
-      // create and destroy at every render? currently yes...
       eventBus.on(EVENT_NAME, updater);
       return () => {
         eventBus.off(EVENT_NAME, updater);
       };
-    }, [updateCount]);
+    }, []);
 
     return [_state, setState];
   }
