@@ -5,7 +5,6 @@ import { createOne } from '../../src';
 const initialState = { count: 0 };
 
 // create one share hooks
-// const [useCount, countStore] = createOne(initialState);
 const [useCount, countStore] = createOne(initialState);
 
 export { useCount, countStore };
