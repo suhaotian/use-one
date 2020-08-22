@@ -1,13 +1,17 @@
 # use-one
 
-[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app.
+[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app. https://use-one.com
 
-[Online Demo (CodeSandbox)](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
+[Online Count Demo (CodeSandbox)](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
+
+[Online TextInput Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
 
 **Features**
 
-- ease share state
-- tiny size
+- Easy share state anywhere
+- No more complex conecpts, only useHook
+- Write in TypeScript
+- Tiny size (with Dependencies together only gzip 2KB!)
 
 ## Install
 
@@ -29,7 +33,7 @@ CDN
 
 ```html
 <script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
-<script src="https://unpkg.com/use-one@0.2.0/dist/useone.umd.production.min.js"></script>
+<script src="https://unpkg.com/use-one@0.3.1/dist/useone.umd.production.min.js"></script>
 ```
 
 Browser Namespace: UseOne.createOne
