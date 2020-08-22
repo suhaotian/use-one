@@ -1,7 +1,11 @@
+
 **Features**
 
-- ease share state
-- tiny size
+- Easy share state anywhere
+- No more complex conecpts, only useHook
+- Write in TypeScript
+- Tiny size (with Dependencies together only gzip 2KB!)
+
 
 ## Install
 
@@ -93,9 +97,18 @@ export default function App() {
 
 ### Online Example
 
+**Count**
 <iframe src="https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="hidden-hooks-i4z28"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+   
+**TextInput**
+<iframe src="https://codesandbox.io/embed/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="use-one-text-input-demo"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
