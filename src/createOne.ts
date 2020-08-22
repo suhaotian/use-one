@@ -17,9 +17,7 @@ export function createOne<T>(
   {
     getState: () => Readonly<T>;
     setState: (newValue: Readonly<T>) => void;
-    subscribe: (
-      cb: (state: Readonly<T>) => void
-    ) => () => void;
+    subscribe: (cb: (state: Readonly<T>) => void) => () => void;
   }
 ] {
   if (eventBus === undefined) {
@@ -35,10 +33,7 @@ export function createOne<T>(
     eventBus?.emit(EVENT_NAME, _state);
   };
 
-  function useOne(): [
-    Readonly<T>,
-    (newValue: Readonly<T>) => void
-  ] {
+  function useOne(): [Readonly<T>, (newValue: Readonly<T>) => void] {
     const updateCountRef = useRef(0);
     const [, setUpdateCount] = useState(0);
 
