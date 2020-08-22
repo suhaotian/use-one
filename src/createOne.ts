@@ -9,14 +9,14 @@ function getID() {
 
 export let eventBus: eventemitter3;
 
-/** @todo Why so many Readonly? */
 export function createOne<T>(
-  initialState: Readonly<T>
+  initialState: T | (() => T)
 ): [
-  () => [Readonly<T>, (newValue: Readonly<T>) => void],
+  /** Here we add Readonly, because the rule is we can't mutate the state */
+  () => [Readonly<T>, (newValue: T) => void],
   {
     getState: () => Readonly<T>;
-    setState: (newValue: Readonly<T>) => void;
+    setState: (newValue: T) => void;
     subscribe: (cb: (state: Readonly<T>) => void) => () => void;
   }
 ] {
@@ -28,12 +28,12 @@ export function createOne<T>(
 
   let _state = initialState;
 
-  const setState = (newValue: Readonly<T>) => {
+  const setState = (newValue: T) => {
     _state = newValue;
     eventBus?.emit(EVENT_NAME, _state);
   };
 
-  function useOne(): [Readonly<T>, (newValue: Readonly<T>) => void] {
+  function useOne(): [Readonly<T>, (newValue: T) => void] {
     const [updateCount, setUpdateCount] = useState(0);
 
     useEffect(() => {
