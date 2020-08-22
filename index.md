@@ -1,11 +1,9 @@
-
 **Features**
 
 - Easy share state anywhere
 - No more complex conecpts, only useHook
 - Write in TypeScript
 - Tiny size (with Dependencies together only gzip 2KB!)
-
 
 ## Install
 
@@ -31,9 +29,9 @@ import { createOne } from "use-one";
 
 const initialState = { count: 0 };
 
-type CountStateType = typeof initialState;
-
-const [useCount, countStore] = createOne<CountStateType>(initialState);
+// export type CountStateType = typeof initialState;
+// const [useCount, countStore] = createOne<CountStateType>(initialState);
+const [useCount, countStore] = createOne(initialState);
 
 export { useCount, countStore };
 
@@ -98,6 +96,7 @@ export default function App() {
 ### Online Example
 
 **Count**
+
 <iframe src="https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="hidden-hooks-i4z28"
@@ -116,7 +115,6 @@ export default function App() {
 #### Dependencies
 
 - [eventemitter3](https://github.com/primus/eventemitter3)
-
 
 <style>
 .project-tagline {
