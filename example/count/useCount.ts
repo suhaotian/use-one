@@ -7,7 +7,9 @@ const initialState = { count: 0 };
 type CountStateType = typeof initialState;
 
 // create one share hooks
+// const [useCount, countStore] = createOne(initialState);
 const [useCount, countStore] = createOne<CountStateType>(initialState);
+
 
 export { useCount, countStore };
 

@@ -50,9 +50,9 @@ import { createOne } from 'use-one';
 
 const initialState = { count: 0 };
 
-type CountStateType = typeof initialState;
-
-const [useCount, countStore] = createOne<CountStateType>(initialState);
+// type CountStateType = typeof initialState;
+// const [useCount, countStore] = createOne<CountStateType>(initialState);
+const [useCount, countStore] = createOne(initialState);
 
 export { useCount, countStore };
 
