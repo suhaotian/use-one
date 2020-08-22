@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
+import { ReadonlyNonBasicType } from './types';
 
 let ID = 0;
 function getID() {
@@ -10,14 +11,14 @@ function getID() {
 export let eventBus: eventemitter3;
 
 export function createOne<T>(
-  initialState: Readonly<T>
+  initialState: ReadonlyNonBasicType<T>
 ): [
-  /** Why so many Readonly here... */
-  () => [Readonly<T>, (newValue: Readonly<T>) => void],
+  /** Why so many ReadonlyNonBasicType here... */
+  () => [ReadonlyNonBasicType<T>, (newValue: ReadonlyNonBasicType<T>) => void],
   {
-    getState: () => Readonly<T>;
-    setState: (newValue: Readonly<T>) => void;
-    subscribe: (cb: (state: Readonly<T>) => void) => () => void;
+    getState: () => ReadonlyNonBasicType<T>;
+    setState: (newValue: ReadonlyNonBasicType<T>) => void;
+    subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => () => void;
   }
 ] {
   if (eventBus === undefined) {
@@ -29,12 +30,15 @@ export function createOne<T>(
   let updateCountRef = 0;
   let _state = initialState;
 
-  const setState = (newValue: Readonly<T>) => {
+  const setState = (newValue: ReadonlyNonBasicType<T>) => {
     _state = newValue;
     eventBus?.emit(EVENT_NAME, _state);
   };
 
-  function useOne(): [Readonly<T>, (newValue: Readonly<T>) => void] {
+  function useOne(): [
+    ReadonlyNonBasicType<T>,
+    (newValue: ReadonlyNonBasicType<T>) => void
+  ] {
     const [, setUpdateCount] = useState(0);
 
     useEffect(() => {
@@ -55,7 +59,7 @@ export function createOne<T>(
   const store = {
     getState: () => _state,
     setState,
-    subscribe: (cb: (state: Readonly<T>) => void) => {
+    subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => {
       eventBus.on(EVENT_NAME, cb);
       return () => {
         eventBus.off(EVENT_NAME, cb);
