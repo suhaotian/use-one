@@ -1,3 +1,1 @@
-export type ReadonlyNonBasicType<T> = T extends number | string | boolean
-  ? T
-  : Readonly<T>;
+export type ReadonlyNonBasicType<T> = T extends object ? Readonly<T> : T;
