@@ -6,13 +6,13 @@ const items = Array.from({ length: 10 * 100 });
 
 export const App = () => {
   React.useEffect(() => {
-    const unSubscribe = countStore.subscribe(newState => {
+    const unsubscribe = countStore.subscribe(newState => {
       console.log('update new state:', newState);
       console.log('select count:', selectors.selectCount());
     });
 
     return () => {
-      unSubscribe();
+      unsubscribe();
     };
   }, []);
 
