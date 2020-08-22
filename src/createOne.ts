@@ -10,14 +10,16 @@ function getID() {
 export let eventBus: eventemitter3;
 
 export function createOne<T>(
-  initialState: T | (() => T)
+  initialState: Readonly<T> | (() => Readonly<T>)
 ): [
-  /** Here we add Readonly, because the rule is we can't mutate the state */
-  () => [Readonly<T>, (newValue: T) => void],
+  /** Why so many Readonly here... */
+  () => [Readonly<T> | (() => Readonly<T>), (newValue: Readonly<T>) => void],
   {
-    getState: () => Readonly<T>;
-    setState: (newValue: T) => void;
-    subscribe: (cb: (state: Readonly<T>) => void) => () => void;
+    getState: () => Readonly<T> | (() => Readonly<T>);
+    setState: (newValue: Readonly<T> | (() => Readonly<T>)) => void;
+    subscribe: (
+      cb: (state: Readonly<T> | (() => Readonly<T>)) => void
+    ) => () => void;
   }
 ] {
   if (eventBus === undefined) {
@@ -28,12 +30,15 @@ export function createOne<T>(
 
   let _state = initialState;
 
-  const setState = (newValue: T) => {
+  const setState = (newValue: Readonly<T> | (() => Readonly<T>)) => {
     _state = newValue;
     eventBus?.emit(EVENT_NAME, _state);
   };
 
-  function useOne(): [Readonly<T>, (newValue: T) => void] {
+  function useOne(): [
+    Readonly<T> | (() => Readonly<T>),
+    (newValue: Readonly<T> | (() => Readonly<T>)) => void
+  ] {
     const [updateCount, setUpdateCount] = useState(0);
 
     useEffect(() => {
@@ -53,7 +58,7 @@ export function createOne<T>(
   const store = {
     getState: () => _state,
     setState,
-    subscribe: (cb: (state: Readonly<T>) => void) => {
+    subscribe: (cb: (state: Readonly<T> | (() => Readonly<T>)) => void) => {
       eventBus.on(EVENT_NAME, cb);
       return () => {
         eventBus.off(EVENT_NAME, cb);
