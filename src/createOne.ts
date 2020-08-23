@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
 import { ReadonlyNonBasicType } from './types';
 
+const MAX_UPDATE_COUNT_NUMBER = 100 * 1000;
+
 let ID = 0;
 function getID() {
   ID++;
@@ -43,7 +45,9 @@ export function createOne<T>(
 
     useEffect(() => {
       function updater() {
-        setUpdateCount(++updateCountRef);
+        updateCountRef =
+          updateCountRef < MAX_UPDATE_COUNT_NUMBER ? updateCountRef + 1 : 0;
+        setUpdateCount(updateCountRef);
       }
       eventBus.on(EVENT_NAME, updater);
 
