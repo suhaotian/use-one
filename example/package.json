@@ -5,10 +5,13 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "use-one": "USE_ONE_BASE_PATH=states/ plop --plopfile node_modules/use-one-templates/plopfile.js"
   },
   "dependencies": {
-    "react-app-polyfill": "^1.0.0"
+    "react-app-polyfill": "^1.0.0",
+    "recoil": "^0.0.10",
+    "use-one": "^0.8.1"
   },
   "alias": {
     "react": "../node_modules/react",
@@ -19,6 +22,8 @@
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "parcel": "^1.12.3",
-    "typescript": "^3.4.5"
+    "plop": "^2.7.4",
+    "typescript": "^3.4.5",
+    "use-one-templates": "^0.1.0"
   }
 }
