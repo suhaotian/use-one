@@ -119,6 +119,10 @@ export default function App() {
 
 - `createOne` Function `createOne<Type>(initialState: Type)`
 
+### Boilerplate code generator
+
+Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in big application.
+
 ### Todos
 
 - [x] unit tests
@@ -127,13 +131,13 @@ export default function App() {
 - [ ] ~~vue support~~
 - [ ] ~~svelte support~~
 - [ ] offical website and documention
-- [ ] more examples
+- [x] more examples
 - [x] \[store\].setState replace with .replaceState
-- [ ] vscode snippet plugin
+- [x] ~~vscode snippet plugin~~ we have [use-one-templates](https://github.com/suhaotian/use-one-templates) now
 
 ### Bugs
 
-TodoList example if we add useTodoList in TodoItem component, if we click remove 4 times, the child component still not remove!
+TodoList example if we add useTodoList in TodoItem component, and click remove button 4 times, the child component still not remove! (Current solution was dont use `hook` in loop condition)
 
 ### Dependencies
 
