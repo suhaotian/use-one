@@ -8,11 +8,14 @@
 
 [Text Input Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
 
+[More Examples](https://github.com/suhaotian/use-one/tree/master/example)
+
 **Features**
 
 - Easy share state anywhere
 - No more complex concepts, only useHook
 - Write in TypeScript
+- Boilerplate Code Generator support
 - Tiny size (with Dependencies together only gzip 2KB!)
 
 ## Install
@@ -119,7 +122,7 @@ export default function App() {
 
 - `createOne` Function `createOne<Type>(initialState: Type)`
 
-### Boilerplate code generator
+### Boilerplate Code Generator
 
 Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in big application.
 
