@@ -20,7 +20,12 @@ export function createOne<T>(
   {
     getState: () => ReadonlyNonBasicType<T>;
     setState: (newValue: ReadonlyNonBasicType<T>) => void;
+    replaceState: (newValue: ReadonlyNonBasicType<T>) => void;
     subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => () => void;
+    /** emit update */
+    forceUpdate: () => void;
+    /** Get how many times we update */
+    getUpdateCount: () => number;
   }
 ] {
   if (eventBus === undefined) {
@@ -32,9 +37,14 @@ export function createOne<T>(
   let updateCountRef = 0;
   let _state = initialState;
 
-  const setState = (newValue: ReadonlyNonBasicType<T>) => {
-    _state = newValue;
+  function emitUpdate() {
     eventBus?.emit(EVENT_NAME, _state);
+  }
+
+  // before setState
+  const replaceState = (newValue: ReadonlyNonBasicType<T>) => {
+    _state = newValue;
+    emitUpdate();
   };
 
   function useOne(): [
@@ -57,18 +67,26 @@ export function createOne<T>(
       };
     }, []);
 
-    return [_state, setState];
+    return [_state, replaceState];
   }
 
   const store = {
     getState: () => _state,
-    setState,
+    setState: (newState: ReadonlyNonBasicType<T>) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Please use replaceState, setState will remove at 1.0');
+      }
+      replaceState(newState);
+    },
+    replaceState,
     subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => {
       eventBus.on(EVENT_NAME, cb);
       return () => {
         eventBus.off(EVENT_NAME, cb);
       };
     },
+    forceUpdate: emitUpdate,
+    getUpdateCount: () => updateCountRef,
   };
   return [useOne, store];
 }

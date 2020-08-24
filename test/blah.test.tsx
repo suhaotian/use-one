@@ -17,12 +17,12 @@ describe('it', () => {
     const unsubscribe = textStore.subscribe(value => {
       textValue = value;
     });
-    textStore.setState('hello');
+    textStore.replaceState('hello');
     expect(textStore.getState()).toBe('hello');
     expect(textValue).toBe('hello');
 
     unsubscribe();
-    textStore.setState('hello world');
+    textStore.replaceState('hello world');
 
     expect(textStore.getState()).toBe('hello world');
     expect(textValue).toBe('hello');

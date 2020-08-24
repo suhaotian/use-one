@@ -11,7 +11,7 @@
 **Features**
 
 - Easy share state anywhere
-- No more complex conecpts, only useHook
+- No more complex concepts, only useHook
 - Write in TypeScript
 - Tiny size (with Dependencies together only gzip 2KB!)
 
@@ -35,7 +35,7 @@ CDN
 
 ```html
 <script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
-<script src="https://unpkg.com/use-one@0.8.0/dist/useone.umd.production.min.js"></script>
+<script src="https://unpkg.com/use-one@0.8.1/dist/useone.umd.production.min.js"></script>
 ```
 
 Browser Namespace: UseOne.createOne
@@ -58,10 +58,10 @@ export { useCount, countStore };
 
 export const actions = {
   increment: () => {
-    countStore.setState({ count: countStore.getState().count + 1 });
+    countStore.replaceState({ count: countStore.getState().count + 1 });
   },
   decrement: () => {
-    countStore.setState({ count: countStore.getState().count - 1 });
+    countStore.replaceState({ count: countStore.getState().count - 1 });
   },
 };
 ```
@@ -121,13 +121,19 @@ export default function App() {
 
 ### Todos
 
-- [ ] unit tests
+- [x] unit tests
 - [ ] performance benchmark test
 - [x] publish to npm
-- [ ] vue support
-- [ ] svelte support
+- [ ] ~~vue support~~
+- [ ] ~~svelte support~~
 - [ ] offical website and documention
 - [ ] more examples
+- [x] \[store\].setState replace with .replaceState
+- [ ] vscode snippet plugin
+
+### Bugs
+
+TodoList example if we add useTodoList in TodoItem component, if we click remove 4 times, the child component still not remove!
 
 ### Dependencies
 
