@@ -1,8 +1,9 @@
 **Features**
 
 - Easy share state anywhere
-- No more complex conecpts, only useHook
+- No more complex concepts, only useHook
 - Write in TypeScript
+- Boilerplate Code Generator support
 - Tiny size (with Dependencies together only gzip 2KB!)
 
 ## Install
@@ -37,10 +38,10 @@ export { useCount, countStore };
 
 export const actions = {
   increment: () => {
-    countStore.setState({ count: countStore.getState().count + 1 });
+    countStore.replaceState({ count: countStore.getState().count + 1 });
   },
   decrement: () => {
-    countStore.setState({ count: countStore.getState().count - 1 });
+    countStore.replaceState({ count: countStore.getState().count - 1 });
   },
 };
 ```
@@ -93,6 +94,14 @@ export default function App() {
 }
 ```
 
+## API
+
+- `createOne` Function `createOne<Type>(initialState: Type)`
+
+## Boilerplate Code Generator
+
+Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in big application.
+
 ### Online Example
 
 **Count**
@@ -111,6 +120,10 @@ export default function App() {
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
+
+### More Examples
+
+[More Examples](https://github.com/suhaotian/use-one/tree/master/example)
 
 #### Dependencies
 
