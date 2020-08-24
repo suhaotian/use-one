@@ -3,7 +3,7 @@
 - Easy share state anywhere
 - No more complex concepts, only useHook
 - Write in TypeScript
-- Boilerplate Code Generator support
+- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
 - Tiny size (with Dependencies together only gzip 2KB!)
 
 ## Install
@@ -100,7 +100,7 @@ export default function App() {
 
 ## Boilerplate Code Generator
 
-Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in big application.
+Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
 
 ### Online Example
 
