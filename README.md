@@ -2,6 +2,14 @@
 
 [`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app. https://use-one.com
 
+**Features**
+
+- Easy share state anywhere
+- No more complex concepts, only useHook
+- Write in TypeScript
+- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
+- Tiny size (with Dependencies together only gzip 2KB!)
+
 **Online Demos (CodeSandbox)**
 
 [Count Demo](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
@@ -14,13 +22,19 @@
 
 [More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
-**Features**
+## API
 
-- Easy share state anywhere
-- No more complex concepts, only useHook
-- Write in TypeScript
-- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
-- Tiny size (with Dependencies together only gzip 2KB!)
+- `createOne` - e.g: `createOne<Type>(initialState)`
+  - returns `[useHook, store]`
+    - `store` methods:
+      - `.getState()` get the state
+      - `.replaceState(newState)` set the state
+      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
+      - `.syncState(newState)` sync state without update, useful for list components update
+
+### Boilerplate Code Generator
+
+Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
 
 ## Install
 
@@ -121,20 +135,6 @@ export default function App() {
   );
 }
 ```
-
-## API
-
-- `createOne` - e.g: `createOne<Type>(initialState)`
-  - returns `[useHook, store]`
-    - `store` methods:
-      - `.getState()` get the state
-      - `.replaceState(newState)` set the state
-      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
-      - `.syncState(newState)` sync state without update, useful for list components update
-
-### Boilerplate Code Generator
-
-Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
 
 ### Todos
 
