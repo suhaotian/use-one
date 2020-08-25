@@ -1,13 +1,13 @@
-import { createOne } from 'use-one';
+import { createOne } from '../../../src';
 import { TodoItemType } from './types';
 
 let initialState: TodoItemType[] = [];
 
-export type TodoListInitialStateType = Readonly<typeof initialState>;
+export type TodoListStateType = Readonly<typeof initialState>;
 
-export const todoListInitialState: TodoListInitialStateType = initialState;
+export const todoListInitialState: TodoListStateType = initialState;
 
-const [useTodoList, todoListStore] = createOne<TodoListInitialStateType>(
+const [useTodoList, todoListStore] = createOne<TodoListStateType>(
   todoListInitialState
 );
 export { useTodoList, todoListStore };

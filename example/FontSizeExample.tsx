@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useFontSize } from './states/fontSize';
+import { useFontSize } from './states/useFontSize';
 
 export function Text() {
   const [fontSize] = useFontSize();

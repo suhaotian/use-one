@@ -6,9 +6,11 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "use-one": "USE_ONE_BASE_PATH=states/ plop --plopfile node_modules/use-one-templates/plopfile.js"
+    "useone": "USE_ONE_BASE_PATH=states/ plop --plopfile node_modules/use-one-templates/plopfile.js"
   },
   "dependencies": {
+    "eventemitter3": "^4.0.4",
+    "react": ">=16",
     "react-app-polyfill": "^1.0.0",
     "recoil": "^0.0.10",
     "use-one": "^0.8.1"
@@ -24,6 +26,6 @@
     "parcel": "^1.12.3",
     "plop": "^2.7.4",
     "typescript": "^3.4.5",
-    "use-one-templates": "^0.1.0"
+    "use-one-templates": "^0.3.0"
   }
 }

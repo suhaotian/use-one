@@ -2,27 +2,28 @@
 import * as React from 'react';
 import {
   useCount,
-  countStore,
+  // countStore,
   countActions,
   countSelectors,
-} from './states/count';
+} from './states/useCount';
+import { Fragment } from 'react';
 
 const items = Array.from({ length: 10 * 100 });
 
 export const CounterExample = () => {
-  React.useEffect(() => {
-    const unsubscribe = countStore.subscribe(newState => {
-      console.log('update new state:', newState);
-      console.log('select count:', countSelectors.getState());
-    });
+  // useEffect(() => {
+  //   const unsubscribe = countStore.subscribe(newState => {
+  //     console.log('update new state:', newState);
+  //     console.log('select count:', countSelectors.state);
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Counter />
       <ul>
         {items.map((j, i) => {
@@ -34,7 +35,7 @@ export const CounterExample = () => {
           );
         })}
       </ul>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
@@ -51,5 +52,5 @@ const Counter = () => {
 const ShowCount = () => {
   useCount();
 
-  return <span>{countSelectors.getCount()}</span>;
+  return <span>{countSelectors.count}</span>;
 };

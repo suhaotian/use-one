@@ -1,9 +1,12 @@
 import { todoListStore, todoListInitialState } from './useTodoList';
-import { TodoFilterEnum } from '../todoFilter/types';
 import { TodoItemType } from './types';
 import { getId, replaceItemAtIndex, removeItemAtIndex } from './utils';
-import { todoInputValueActions, todoInputValueStore } from '../todoInputValue';
-import { todoFilterStore } from '../todoFilter';
+import {
+  todoInputValueActions,
+  todoInputValueStore,
+} from '../useTodoInputValue';
+import { todoListSelectors } from './selectors';
+import { todoStatsStore, todoStatsActions } from '../useTodoStats';
 
 export const todoListActions = {
   reset() {
@@ -22,22 +25,26 @@ export const todoListActions = {
     todoInputValueActions.changeValue('');
   },
 
-  editItemText: (value: string, item: TodoItemType) => {
-    const newList = replaceItemAtIndex(todoListStore.getState(), item.id, {
-      ...item,
-      text: value,
-    });
+  editItemText: (updatedItem: TodoItemType) => {
+    const newList = replaceItemAtIndex(
+      todoListStore.getState(),
+      updatedItem.id,
+      updatedItem
+    );
 
-    todoListStore.setState(newList);
+    todoListStore.syncState(newList);
   },
 
-  toggleItemCompletion: (item: TodoItemType) => {
-    const newList = replaceItemAtIndex(todoListStore.getState(), item.id, {
-      ...item,
-      isComplete: !item.isComplete,
-    });
+  toggleItemCompletion: (updatedItem: TodoItemType) => {
+    const newList = replaceItemAtIndex(
+      todoListStore.getState(),
+      updatedItem.id,
+      updatedItem
+    );
+    todoListStore.syncState(newList);
 
-    todoListStore.replaceState(newList);
+    /** update stats */
+    todoStatsActions.updateStats();
   },
 
   deleteItem: (item: TodoItemType) => {

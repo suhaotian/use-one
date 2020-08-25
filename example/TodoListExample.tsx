@@ -1,18 +1,27 @@
 import * as React from 'react';
+import { useState, useMemo } from 'react';
 import {
   useTodoFilter,
   todoFilterActions,
   TodoFilterEnum,
-} from './states/todoFilter';
+} from './states/useTodoFilter';
 import {
   useTodoList,
   todoListActions,
   todoListSelectors,
+  TodoItemType,
 } from './states/todoList';
 import {
   useTodoInputValue,
   todoInputValueActions,
-} from './states/todoInputValue';
+} from './states/useTodoInputValue';
+import { useTodoStats } from './states/useTodoStats';
+
+function useUpdate(): [number, Function] {
+  const [count, setCount] = useState(0);
+
+  return [count, () => setCount(count + 1)];
+}
 
 export function TodoListExample() {
   return (
@@ -26,17 +35,17 @@ export function TodoListExample() {
   );
 }
 
+// 哪几个操作会重新计算这里的数值：todo toggle complete; add; remove;
 function TodoListStats() {
-  useTodoFilter();
-  useTodoList();
-
-  const {
-    totalNum,
-    totalCompletedNum,
-    totalUncompletedNum,
-    percentCompleted,
-    formattedPercentCompleted,
-  } = todoListSelectors.getStats();
+  const [
+    {
+      totalNum,
+      totalCompletedNum,
+      totalUncompletedNum,
+      // percentCompleted,
+      formattedPercentCompleted,
+    },
+  ] = useTodoStats();
 
   return (
     <ul>
@@ -92,27 +101,51 @@ function List() {
   return (
     <>
       {todoListSelectors.getFilterList().map(todoItem => (
-        <TodoItem key={todoItem.id} item={todoItem} />
+        <TodoItem key={todoItem.id} id={todoItem.id} />
       ))}
     </>
   );
 }
 
-function TodoItem({ item }) {
+function useTodoItemSelector(id: number): [TodoItemType, Function] {
+  const [count, setUpdate] = useUpdate();
+  const item = useMemo(() => todoListSelectors.getItem(id), [count]);
+
+  return [item, setUpdate];
+}
+
+function TodoItem({ id }: { id: number }) {
   // @Bug: uncomment this line, then click add 4 times, and remove 4 times, you will see the bugs
   // useTodoList();
 
+  const [item, setUpdate] = useTodoItemSelector(id);
+
   return (
-    <div id={item.id}>
+    <div>
       <input
         type="text"
         value={item.text}
-        onChange={e => todoListActions.editItemText(e.target.value, item)}
+        // onChange={e => todoListActions.editItemText(e.target.value, item)}
+        onChange={e => {
+          const updatedItem = {
+            ...item,
+            text: e.target.value,
+          };
+          todoListActions.editItemText(updatedItem);
+          setUpdate();
+        }}
       />
       <input
         type="checkbox"
         checked={item.isComplete}
-        onChange={() => todoListActions.toggleItemCompletion(item)}
+        onChange={() => {
+          const updatedItem = {
+            ...item,
+            isComplete: !item.isComplete,
+          };
+          todoListActions.toggleItemCompletion(updatedItem);
+          setUpdate();
+        }}
       />
       <button onClick={() => todoListActions.deleteItem(item)}>X</button>
     </div>

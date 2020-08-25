@@ -1,14 +1,16 @@
-import { todoListStore, todoListInitialState } from './useTodoList';
-import { TodoListInitialStateType } from './types';
-import { todoFilterStore, TodoFilterEnum } from '../../states/todoFilter';
+import { todoListStore } from './useTodoList';
+import { TodoListStateType, TodoItemType } from './types';
+import { todoFilterStore, TodoFilterEnum } from '../../states/useTodoFilter';
 
 export const todoListSelectors = {
-  getState(): TodoListInitialStateType {
+  getState(): TodoListStateType {
     return todoListStore.getState();
   },
+
   getFilterList: () => {
     const todoList = todoListStore.getState();
     const todoFilter = todoFilterStore.getState();
+
     if (todoFilter === TodoFilterEnum['Show ALL']) return todoList;
     if (todoFilter === TodoFilterEnum['Show Completed'])
       return todoList.filter(item => item.isComplete);
@@ -33,5 +35,11 @@ export const todoListSelectors = {
       percentCompleted,
       formattedPercentCompleted,
     };
+  },
+
+  getItem: (id: number) => {
+    const todoList = todoListStore.getState();
+
+    return (todoList.find(item => item.id === id) as any) as TodoItemType;
   },
 };
