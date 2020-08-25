@@ -8,10 +8,9 @@
 
 [Text Input Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
 
-
 ### More Examples
 
-https://use-one.com/demo.html
+[https://use-one.com/demo.html](https://use-one.com/demo.html)
 
 [More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
@@ -125,7 +124,7 @@ export default function App() {
 
 ## API
 
-- `createOne` Function `createOne<Type>(initialState: Type)`
+- `createOne` Function `createOne<Type>(initialState)`
 
 ### Boilerplate Code Generator
 
@@ -138,7 +137,8 @@ Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), 
 - [x] publish to npm
 - [ ] ~~vue support~~
 - [ ] ~~svelte support~~
-- [ ] offical website and documention
+- [x] offical website
+- [ ] better documention
 - [x] more examples
 - [x] \[store\].setState replace with .replaceState
 - [x] ~~vscode snippet plugin~~ we have [use-one-templates](https://github.com/suhaotian/use-one-templates) now
