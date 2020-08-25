@@ -12,8 +12,7 @@
     "eventemitter3": "^4.0.4",
     "react": ">=16",
     "react-app-polyfill": "^1.0.0",
-    "recoil": "^0.0.10",
-    "use-one": "^0.8.1"
+    "recoil": "^0.0.10"
   },
   "alias": {
     "react": "../node_modules/react",

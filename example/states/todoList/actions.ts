@@ -5,8 +5,7 @@ import {
   todoInputValueActions,
   todoInputValueStore,
 } from '../useTodoInputValue';
-import { todoListSelectors } from './selectors';
-import { todoStatsStore, todoStatsActions } from '../useTodoStats';
+import { todoStatsActions } from '../useTodoStats';
 
 export const todoListActions = {
   reset() {

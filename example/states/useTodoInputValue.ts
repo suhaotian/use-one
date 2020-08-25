@@ -1,6 +1,6 @@
 /** Generator by `use-one-templates` https://github.com/suhaotian/use-one-templates */
 
-import { createOne } from 'use-one';
+import { createOne } from '../../src';
 
 let initialState = '';
 

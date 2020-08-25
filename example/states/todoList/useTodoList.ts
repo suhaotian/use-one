@@ -1,7 +1,7 @@
 import { createOne } from '../../../src';
 import { TodoItemType } from './types';
 
-let initialState: TodoItemType[] = [];
+let initialState: Readonly<TodoItemType>[] = [];
 
 export type TodoListStateType = Readonly<typeof initialState>;
 
