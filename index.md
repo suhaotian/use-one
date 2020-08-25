@@ -96,7 +96,13 @@ export default function App() {
 
 ## API
 
-- `createOne` Function `createOne<Type>(initialState: Type)`
+- `createOne` - e.g: `createOne<Type>(initialState)`
+  - returns `[useHook, store]`
+    - `store` methods:
+      - `.getState()` get the state
+      - `.replaceState(newState)` set the state
+      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
+      - `.syncState(newState)` sync state without update, useful for list components update
 
 ## Boilerplate Code Generator
 
