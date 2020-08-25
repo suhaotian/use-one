@@ -123,7 +123,7 @@ Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), 
 
 ### More Examples
 
-https://use-one.com/demo.html
+[https://use-one.com/demo.html](https://use-one.com/demo.html)
 
 [More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
