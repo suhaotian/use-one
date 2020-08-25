@@ -38,7 +38,7 @@ CDN
 
 ```html
 <script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
-<script src="https://unpkg.com/use-one@0.8.1/dist/useone.umd.production.min.js"></script>
+<script src="https://unpkg.com/use-one@0.8.2/dist/useone.umd.production.min.js"></script>
 ```
 
 Browser Namespace: UseOne.createOne
