@@ -123,7 +123,9 @@ Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), 
 
 ### More Examples
 
-[More Examples](https://github.com/suhaotian/use-one/tree/master/example)
+https://use-one.com/demo/index.html
+
+[More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
 #### Dependencies
 
