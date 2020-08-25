@@ -22,6 +22,8 @@ export function createOne<T>(
     setState: (newValue: ReadonlyNonBasicType<T>) => void;
     replaceState: (newValue: ReadonlyNonBasicType<T>) => void;
     subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => () => void;
+    /** sync state without emit update */
+    syncState: (newValue: ReadonlyNonBasicType<T>) => void;
     /** emit update */
     forceUpdate: () => void;
     /** Get how many times we update */
@@ -41,9 +43,14 @@ export function createOne<T>(
     eventBus?.emit(EVENT_NAME, _state);
   }
 
-  // before setState
-  const replaceState = (newValue: ReadonlyNonBasicType<T>) => {
+  // sync state without emit to update component
+  const syncState = (newValue: ReadonlyNonBasicType<T>) => {
     _state = newValue;
+  };
+
+  // before this is setState
+  const replaceState = (newValue: ReadonlyNonBasicType<T>) => {
+    syncState(newValue);
     emitUpdate();
   };
 
@@ -86,6 +93,7 @@ export function createOne<T>(
       };
     },
     forceUpdate: emitUpdate,
+    syncState,
     getUpdateCount: () => updateCountRef,
   };
   return [useOne, store];
