@@ -8,7 +8,12 @@
 
 [Text Input Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
 
-[More Examples](https://github.com/suhaotian/use-one/tree/master/example)
+
+### More Examples
+
+https://use-one.com/demo.html
+
+[More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
 **Features**
 
