@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
-import { ReadonlyNonBasicType } from './types';
+import { ReadonlyNonBasicType, OptionsType, StoreType, CBType } from './types';
 
 const MAX_UPDATE_COUNT_NUMBER = 100 * 1000;
 
@@ -13,23 +13,22 @@ function getID() {
 export let eventBus: eventemitter3;
 
 export function createOne<T>(
-  initialState: ReadonlyNonBasicType<T>
+  initialState: ReadonlyNonBasicType<T>,
+  options?: OptionsType
 ): [
   /** Why so many ReadonlyNonBasicType here... */
-  () => [ReadonlyNonBasicType<T>, (newValue: ReadonlyNonBasicType<T>) => void],
-  {
-    getState: () => ReadonlyNonBasicType<T>;
-    setState: (newValue: ReadonlyNonBasicType<T>) => void;
-    replaceState: (newValue: ReadonlyNonBasicType<T>) => void;
-    subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => () => void;
-    /** sync state without emit update */
-    syncState: (newValue: ReadonlyNonBasicType<T>) => void;
-    /** emit update */
-    forceUpdate: () => void;
-    /** Get how many times we update */
-    getUpdateCount: () => number;
-  }
+  () => [ReadonlyNonBasicType<T>, CBType<T>],
+  StoreType<T>
 ] {
+  options = options || {
+    useEffect: true,
+  };
+
+  const _useEffect =
+    options.useEffect === undefined || options.useEffect
+      ? useEffect
+      : useLayoutEffect;
+
   if (eventBus === undefined) {
     eventBus = new eventemitter3();
   }
@@ -37,13 +36,19 @@ export function createOne<T>(
   const EVENT_NAME = getID();
 
   let updateCountRef = 0;
+  let isDestroy = false;
   let _state = initialState;
 
   function emitUpdate() {
+    if (isDestroy) {
+      throw new Error(
+        `The state ${options?.name || EVENT_NAME} already destroyed`
+      );
+    }
     eventBus?.emit(EVENT_NAME, _state);
   }
 
-  // sync state without emit to update component
+  // sync state without emit to rerender component
   const syncState = (newValue: ReadonlyNonBasicType<T>) => {
     _state = newValue;
   };
@@ -54,13 +59,10 @@ export function createOne<T>(
     emitUpdate();
   };
 
-  function useOne(): [
-    ReadonlyNonBasicType<T>,
-    (newValue: ReadonlyNonBasicType<T>) => void
-  ] {
+  function useOne(): [ReadonlyNonBasicType<T>, CBType<T>] {
     const [, setUpdateCount] = useState(0);
 
-    useEffect(() => {
+    _useEffect(() => {
       function updater() {
         updateCountRef =
           updateCountRef < MAX_UPDATE_COUNT_NUMBER ? updateCountRef + 1 : 0;
@@ -86,7 +88,7 @@ export function createOne<T>(
       replaceState(newState);
     },
     replaceState,
-    subscribe: (cb: (state: ReadonlyNonBasicType<T>) => void) => {
+    subscribe: (cb: CBType<T>) => {
       eventBus.on(EVENT_NAME, cb);
       return () => {
         eventBus.off(EVENT_NAME, cb);
@@ -95,6 +97,12 @@ export function createOne<T>(
     forceUpdate: emitUpdate,
     syncState,
     getUpdateCount: () => updateCountRef,
+    destroy: () => {
+      eventBus.off(EVENT_NAME);
+      isDestroy = true;
+      (updateCountRef as any) = null;
+      (_state as any) = null;
+    },
   };
   return [useOne, store];
 }

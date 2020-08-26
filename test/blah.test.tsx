@@ -28,5 +28,18 @@ describe('it', () => {
 
     expect(textStore.getState()).toBe('hello useOne');
     expect(textValue).toBe('hello');
+
+    let t = '';
+    textStore.subscribe(value => {
+      t = value;
+    });
+
+    textStore.forceUpdate();
+
+    expect(t === 'hello useOne');
+    textStore.destroy();
+
+    expect(textStore.getUpdateCount() === null);
+    expect(textStore.getState() === null);
   });
 });

@@ -24,13 +24,14 @@
 
 ## API
 
-- `createOne` - e.g: `createOne<Type>(initialState)`
+- `createOne` - e.g: `createOne<Type>(initialState, Options?: {useEffect?: boolean, name?: string})` // if useEffect false, will use useLayoutEffect
   - returns `[useHook, store]`
     - `store` methods:
       - `.getState()` get the state
       - `.replaceState(newState)` set the state
       - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
       - `.syncState(newState)` sync state without update, useful for list components update
+      - `.destroy` clear event
 
 ### Boilerplate Code Generator
 

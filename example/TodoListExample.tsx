@@ -35,7 +35,6 @@ export function TodoListExample() {
   );
 }
 
-// 哪几个操作会重新计算这里的数值：todo toggle complete; add; remove;
 function TodoListStats() {
   const [
     {
@@ -125,7 +124,6 @@ function TodoItem({ id }: { id: number }) {
       <input
         type="text"
         value={item.text}
-        // onChange={e => todoListActions.editItemText(e.target.value, item)}
         onChange={e => {
           const updatedItem = {
             ...item,
