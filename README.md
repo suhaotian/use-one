@@ -24,7 +24,8 @@
 
 ## API
 
-- `createOne` - e.g: `createOne<Type>(initialState, Options?: {useEffect?: boolean, name?: string})` // if useEffect false, will use useLayoutEffect
+- `createOne` - e.g: `createOne<Type>(initialState, Options?: {useEffect?: boolean, name?: string})` 
+  if the options useEffect is false, will use useLayoutEffect
   - returns `[useHook, store]`
     - `store` methods:
       - `.getState()` get the state
