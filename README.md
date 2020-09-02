@@ -94,7 +94,7 @@ export const actions = {
 ```tsx
 // CountExample.tsx
 import * as React from 'react';
-import { useCount, actions } from './useCount';
+import { useCount, actions, countStore } from './useCount';
 
 const Counter = () => {
   const [countState, setCountState] = useCount();
