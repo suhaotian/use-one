@@ -25,16 +25,18 @@ export function createOne<T>(
     /** the readonly state */
     ReadonlyNonBasic<T>,
     /** the function that update state to new state */
-    () => T
+    (newState: ReadonlyNonBasic<T>) => void
   ],
   {
     getState: () => ReadonlyNonBasic<T>;
-    setState: (newState: T) => void;
-    replaceState: (newState: T) => void;
+    setState: (newState: ReadonlyNonBasic<T>) => void;
+    replaceState: (newState: ReadonlyNonBasic<T>) => void;
     /* sync state without emit update */
-    syncState: (newState: T) => void;
+    syncState: (newState: ReadonlyNonBasic<T>) => void;
     /* subscribe state update, return a unsubscribe function */
-    subscribe: (callback: (state: T) => void) => UnsubscribeFunction;
+    subscribe: (
+      callback: (state: ReadonlyNonBasic<T>) => void
+    ) => UnsubscribeFunction;
     /* emit update */
     forceUpdate: () => void;
     /* remove alll subscribe event and clear internal count */
@@ -82,7 +84,10 @@ export function createOne<T>(
     emitUpdate();
   };
 
-  function useOne(): [ReadonlyNonBasic<T>, (newState: T) => {}] {
+  function useOne(): [
+    ReadonlyNonBasic<T>,
+    (newState: ReadonlyNonBasic<T>) => void
+  ] {
     const [, setUpdateCount] = useState(0);
 
     _useEffect(() => {
@@ -111,7 +116,7 @@ export function createOne<T>(
       replaceState(newState);
     },
     replaceState,
-    subscribe: (callback: (state: T) => void) => {
+    subscribe: (callback: (state: ReadonlyNonBasic<T>) => void) => {
       eventBus.on(EVENT_NAME, callback);
       return () => {
         eventBus.off(EVENT_NAME, callback);
