@@ -1,6 +1,10 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
-import { ReadonlyNonBasicType, OptionsType, StoreType, CBType } from './types';
+import {
+  ReadonlyNonBasic,
+  CreateOneOptions,
+  UnsubscribeFunction,
+} from './types';
 
 const MAX_UPDATE_COUNT_NUMBER = 100 * 1000;
 
@@ -13,12 +17,31 @@ function getID() {
 export let eventBus: eventemitter3;
 
 export function createOne<T>(
-  initialState: ReadonlyNonBasicType<T>,
-  options?: OptionsType
+  initialState: ReadonlyNonBasic<T>,
+  options?: CreateOneOptions
 ): [
-  /** Why so many ReadonlyNonBasicType here... */
-  () => [ReadonlyNonBasicType<T>, CBType<T>],
-  StoreType<T>
+  /** Returns a stateful value, and a function to update it. */
+  () => [
+    /** the readonly state */
+    ReadonlyNonBasic<T>,
+    /** the function that update state to new state */
+    () => T
+  ],
+  {
+    getState: () => ReadonlyNonBasic<T>;
+    setState: (newState: T) => void;
+    replaceState: (newState: T) => void;
+    /* sync state without emit update */
+    syncState: (newState: T) => void;
+    /* subscribe state update, return a unsubscribe function */
+    subscribe: (callback: (state: T) => void) => UnsubscribeFunction;
+    /* emit update */
+    forceUpdate: () => void;
+    /* remove alll subscribe event and clear internal count */
+    destroy: () => void;
+    /* get how many times we update */
+    getUpdateCount: () => number;
+  }
 ] {
   options = options || {
     useEffect: true,
@@ -49,17 +72,17 @@ export function createOne<T>(
   }
 
   // sync state without emit to rerender component
-  const syncState = (newValue: ReadonlyNonBasicType<T>) => {
+  const syncState = (newValue: ReadonlyNonBasic<T>) => {
     _state = newValue;
   };
 
   // before this is setState
-  const replaceState = (newValue: ReadonlyNonBasicType<T>) => {
+  const replaceState = (newValue: ReadonlyNonBasic<T>) => {
     syncState(newValue);
     emitUpdate();
   };
 
-  function useOne(): [ReadonlyNonBasicType<T>, CBType<T>] {
+  function useOne(): [ReadonlyNonBasic<T>, (newState: T) => {}] {
     const [, setUpdateCount] = useState(0);
 
     _useEffect(() => {
@@ -81,17 +104,17 @@ export function createOne<T>(
 
   const store = {
     getState: () => _state,
-    setState: (newState: ReadonlyNonBasicType<T>) => {
+    setState: (newState: ReadonlyNonBasic<T>) => {
       if (process.env.NODE_ENV === 'development') {
         console.warn('Please use replaceState, setState will remove at 1.0');
       }
       replaceState(newState);
     },
     replaceState,
-    subscribe: (cb: CBType<T>) => {
-      eventBus.on(EVENT_NAME, cb);
+    subscribe: (callback: (state: T) => void) => {
+      eventBus.on(EVENT_NAME, callback);
       return () => {
-        eventBus.off(EVENT_NAME, cb);
+        eventBus.off(EVENT_NAME, callback);
       };
     },
     forceUpdate: emitUpdate,
