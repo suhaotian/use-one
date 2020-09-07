@@ -28,8 +28,11 @@ export function createOne<T>(
     (newState: ReadonlyNonBasic<T>) => void
   ],
   {
+    /** get the state */
     getState: () => ReadonlyNonBasic<T>;
+    /**[Not Recommend Function] like replaceState, will remove at 1.0.0 version */
     setState: (newState: ReadonlyNonBasic<T>) => void;
+    /** set the state with the new state */
     replaceState: (newState: ReadonlyNonBasic<T>) => void;
     /* sync state without emit update */
     syncState: (newState: ReadonlyNonBasic<T>) => void;
@@ -41,7 +44,7 @@ export function createOne<T>(
     forceUpdate: () => void;
     /* remove alll subscribe event and clear internal count */
     destroy: () => void;
-    /* get how many times we update */
+    /* get how many times we emit update */
     getUpdateCount: () => number;
   }
 ] {
