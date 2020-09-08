@@ -76,12 +76,12 @@ export function createOne<T>(
     eventBus?.emit(EVENT_NAME, _state);
   }
 
-  // sync state without emit to rerender component
+  // Sync state without emit to rerender component.
+  // Useful for performance optimization in loop components (see example/TodoListExample.tsx)
   const syncState = (newValue: ReadonlyNonBasic<T>) => {
     _state = newValue;
   };
 
-  // before this is setState
   const replaceState = (newValue: ReadonlyNonBasic<T>) => {
     syncState(newValue);
     emitUpdate();
