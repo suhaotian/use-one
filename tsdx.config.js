@@ -4,7 +4,7 @@ module.exports = {
   rollup(config, options) {
     config.output.globals = {
       eventemitter3: 'EventEmitter3',
-      react: 'React'
+      react: 'React',
     };
     return config; // always return a config.
   },
