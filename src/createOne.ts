@@ -6,7 +6,7 @@ import {
   UnsubscribeFunction,
 } from './types';
 
-const MAX_UPDATE_COUNT_NUMBER = 100 * 1000;
+const MAX_UPDATE_COUNT_NUMBER = 1000000;
 
 let ID = 0;
 function getID() {
@@ -103,7 +103,6 @@ export function createOne<T>(
 
       return () => {
         eventBus.off(EVENT_NAME, updater);
-        updateCountRef = 0;
       };
     }, []);
 
