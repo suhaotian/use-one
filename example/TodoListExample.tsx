@@ -114,8 +114,7 @@ function useTodoItemSelector(id: number): [TodoItemType, Function] {
 }
 
 function TodoItem({ id }: { id: number }) {
-  // @Bug: uncomment this line, then click add 4 times, and remove 4 times, you will see the bugs
-  // useTodoList();
+  useTodoList();
 
   const [item, setUpdate] = useTodoItemSelector(id);
 

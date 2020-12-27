@@ -28,7 +28,7 @@ export const countActions = {
     countStore.replaceState(countSelectors.count + 1);
   },
   '-1': () => {
-    countStore.replaceState(countSelectors.count + 1);
+    countStore.replaceState(countSelectors.count - 1);
   },
   'async+1': async (ms: number) => {
     /* @todo need to clearTimeout */
