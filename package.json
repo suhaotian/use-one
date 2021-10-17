@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,9 +13,9 @@
     "url": "https://github.com/suhaotian/use-one/issues"
   },
   "homepage": "https://use-one.com",
-  "main": "dist/index.js",
-  "module": "dist/use-one.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/useone.esm.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
