@@ -1,6 +1,6 @@
 # use-one
 
-[`use-one`](https://use-one.com) is a HOH(higher-order hook) for share state between components in react app. https://use-one.com
+[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app. 
 
 **Features**
 
