@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "0.10.1",
+  "version": "0.10.1-beta.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "start:example": "cd example && yarn && yarn start"
   },
   "files": [
+    "README.md",
     "dist"
   ],
   "dependencies": {
