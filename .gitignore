@@ -10,3 +10,4 @@ dist
 yarn.lock
 package-lock.json
 .npmrc
+.parcel-cache
