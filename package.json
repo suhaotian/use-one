@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "0.9.7",
+  "version": "0.10.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,25 +13,30 @@
     "url": "https://github.com/suhaotian/use-one/issues"
   },
   "homepage": "https://use-one.com",
-  "main": "./dist/index.js",
-  "module": "./dist/useone.esm.js",
-  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.mjs",
+    "module": "./dist/index.esm.js"
+  },
+  "scripts": {
+    "build": "bunchee ./src/index.ts",
+    "start:example": "cd example && yarn && yarn start"
+  },
   "files": [
     "dist"
   ],
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build --format cjs,esm,umd --name UseOne",
-    "test": "tsdx test --env=jsdom",
-    "lint": "tsdx lint"
+  "dependencies": {
+    "eventemitter3": "^5.0.0"
   },
   "peerDependencies": {
-    "eventemitter3": "^4.0.4",
     "react": ">=16"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "echo lint"
     }
   },
   "prettier": {
@@ -41,15 +46,13 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@types/eventemitter3": "^2.0.2",
-    "@types/jest": "^26.0.10",
-    "@types/react": "^16.9.46",
-    "@types/react-dom": "^16.9.8",
+    "@types/jest": "^29.2.5",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
     "husky": "^4.2.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "tsdx": "^0.13.2",
-    "tslib": "^2.0.1",
-    "typescript": "^3.9.7"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "bunchee": "^2.2.0",
+    "typescript": "^4.9.4"
   }
 }

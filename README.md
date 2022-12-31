@@ -1,13 +1,13 @@
 # use-one
 
-[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app. 
+[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app.
 
 **Features**
 
 - Easy share state anywhere
 - No more complex concepts, only useHook
 - Write in TypeScript
-- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
+- ~~Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)~~
 - Tiny size (with Dependencies together only gzip 2KB!)
 
 **Online Demos (CodeSandbox)**
@@ -35,22 +35,18 @@
       - `.syncState(newState)` sync state without update, useful for list components update
       - `.destroy` clear event
 
-### Boilerplate Code Generator
-
-Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
-
 ## Install
 
 **npm**
 
 ```bash
-npm install use-one eventemitter3 --save
+npm install use-one  --save
 ```
 
 **yarn**
 
 ```bash
-yarn add use-one eventemitter3
+yarn add use-one
 ```
 
 **UMD**
