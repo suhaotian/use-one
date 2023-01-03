@@ -28,8 +28,6 @@ export function createOne<T>(
   {
     /** get the state */
     getState: () => ReadonlyNonBasic<T>;
-    /**[Not Recommend Function] like replaceState, will remove at 1.0.0 version */
-    setState: (newState: ReadonlyNonBasic<T>) => void;
     /** set the state with the new state */
     replaceState: (newState: ReadonlyNonBasic<T>) => void;
     /* sync state without emit update */
@@ -108,12 +106,6 @@ export function createOne<T>(
 
   const store = {
     getState: () => _state,
-    setState: (newState: ReadonlyNonBasic<T>) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Please use replaceState, setState will remove at 1.0');
-      }
-      replaceState(newState);
-    },
     replaceState,
     subscribe: (callback: (state: ReadonlyNonBasic<T>) => void) => {
       eventBus.on(EVENT_NAME, callback);
