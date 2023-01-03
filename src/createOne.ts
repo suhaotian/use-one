@@ -6,8 +6,6 @@ import {
   UnsubscribeFunction,
 } from './types';
 
-const MAX_UPDATE_COUNT_NUMBER = 1000000;
-
 let ID = 0;
 function getID() {
   ID++;
@@ -95,8 +93,7 @@ export function createOne<T>(
 
     _useEffect(() => {
       function updater() {
-        updateCountRef =
-          updateCountRef < MAX_UPDATE_COUNT_NUMBER ? updateCountRef + 1 : 0;
+        updateCountRef++;
         setUpdateCount(updateCountRef);
       }
       eventBus.on(EVENT_NAME, updater);
