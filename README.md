@@ -117,10 +117,6 @@ export default function App() {
 }
 ```
 
-### Bugs
-
-TodoList example if we add useTodoList in TodoItem component, and click remove button 4 times, the child component still not remove! (Current solution was dont use `hook` in loop condition)
-
 ### Dependencies
 
 - [eventemitter3](https://github.com/primus/eventemitter3)
