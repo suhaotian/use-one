@@ -7,14 +7,7 @@
 - Easy share state anywhere
 - No more complex concepts, only useHook
 - Write in TypeScript
-- ~~Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)~~
 - Tiny size (with Dependencies together only gzip 2KB!)
-
-**Online Demos (CodeSandbox)**
-
-[Count Demo](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
-
-[Text Input Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
 
 ### More Examples
 
@@ -43,22 +36,11 @@
 npm install use-one  --save
 ```
 
-**yarn**
+**pnpm**
 
 ```bash
-yarn add use-one
+pnpm install use-one
 ```
-
-**UMD**
-
-CDN
-
-```html
-<script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
-<script src="https://unpkg.com/use-one@0.9.5/dist/useone.umd.production.min.js"></script>
-```
-
-Browser Namespace: UseOne.createOne
 
 ## Usage
 
@@ -134,19 +116,6 @@ export default function App() {
   );
 }
 ```
-
-### Todos
-
-- [x] unit tests
-- [ ] performance benchmark test
-- [x] publish to npm
-- [ ] ~~vue support~~
-- [ ] ~~svelte support~~
-- [x] offical website
-- [ ] better documention
-- [x] more examples
-- [x] \[store\].setState replace with .replaceState
-- [x] ~~vscode snippet plugin~~ we have [use-one-templates](https://github.com/suhaotian/use-one-templates) now
 
 ### Bugs
 
