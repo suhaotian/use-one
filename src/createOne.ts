@@ -44,19 +44,23 @@ export function createOne<T>(
 
   // Sync state without emit to rerender component.
   // Useful for performance optimization in loop components (see example/TodoListExample.tsx)
-  const syncState = (newValue: ReadonlyNonBasic<T>) => {
-    _state = newValue;
+  const syncState = (
+    newValue:
+      | ReadonlyNonBasic<T>
+      | ((oldState: ReadonlyNonBasic<T>) => ReadonlyNonBasic<T>)
+  ) => {
+    _state =
+      typeof newValue === 'function'
+        ? (newValue as Function)(_state)
+        : newValue;
   };
 
-  const replaceState = (newValue: ReadonlyNonBasic<T>) => {
+  const replaceState = (newValue: Parameters<typeof syncState>[0]) => {
     syncState(newValue);
     emitUpdate();
   };
 
-  function useOne(): [
-    ReadonlyNonBasic<T>,
-    (newState: ReadonlyNonBasic<T>) => void
-  ] {
+  function useOne() {
     const [, setUpdateCount] = useState(0);
 
     _useEffect(() => {
@@ -71,7 +75,7 @@ export function createOne<T>(
       };
     }, []);
 
-    return [_state, replaceState];
+    return [_state, replaceState] as const;
   }
 
   const store = {
