@@ -1,7 +1,8 @@
 {
   "name": "use-one",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
+  "packageManager": "pnpm@7.28.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/suhaotian/use-one.git"
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "build": "bunchee ./src/index.ts",
-    "start:example": "cd example && yarn && yarn start"
+    "start:example": "cd example && pnpm i && pnpm start"
   },
   "files": [
     "README.md",
@@ -48,12 +49,12 @@
   },
   "devDependencies": {
     "@types/jest": "^29.2.5",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10",
-    "husky": "^4.2.5",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "husky": "^8.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "bunchee": "^2.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   }
 }
