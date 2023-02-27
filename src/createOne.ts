@@ -1,10 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
-import {
-  ReadonlyNonBasic,
-  CreateOneOptions,
-  UnsubscribeFunction,
-} from './types';
+import { ReadonlyNonBasic, CreateOneOptions } from './types';
 
 let ID = 0;
 function getID() {
@@ -17,33 +13,7 @@ export let eventBus: eventemitter3;
 export function createOne<T>(
   initialState: ReadonlyNonBasic<T>,
   options?: CreateOneOptions
-): [
-  /** Returns a stateful value, and a function to update it. */
-  () => [
-    /** the readonly state */
-    ReadonlyNonBasic<T>,
-    /** the function that update state to new state */
-    (newState: ReadonlyNonBasic<T>) => void
-  ],
-  {
-    /** get the state */
-    getState: () => ReadonlyNonBasic<T>;
-    /** set the state with the new state */
-    replaceState: (newState: ReadonlyNonBasic<T>) => void;
-    /* sync state without emit update */
-    syncState: (newState: ReadonlyNonBasic<T>) => void;
-    /* subscribe state update, return a unsubscribe function */
-    subscribe: (
-      callback: (state: ReadonlyNonBasic<T>) => void
-    ) => UnsubscribeFunction;
-    /* emit update */
-    forceUpdate: () => void;
-    /* remove alll subscribe event and clear internal count */
-    destroy: () => void;
-    /* get how many times we emit update */
-    getUpdateCount: () => number;
-  }
-] {
+) {
   options = options || {
     useEffect: true,
   };
@@ -119,9 +89,9 @@ export function createOne<T>(
     destroy: () => {
       eventBus.off(EVENT_NAME);
       isDestroy = true;
-      (updateCountRef as any) = null;
-      (_state as any) = null;
+      (updateCountRef as unknown) = null;
+      (_state as unknown) = null;
     },
   };
-  return [useOne, store];
+  return [useOne, store] as const;
 }

@@ -7,6 +7,3 @@ export type CreateOneOptions = {
   /** state name */
   name?: string;
 };
-
-/** unsubscribe function */
-export type UnsubscribeFunction = () => void;
