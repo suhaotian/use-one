@@ -17,7 +17,7 @@ describe('it', () => {
     const unsubscribe = textStore.subscribe(value => {
       textValue = value;
     });
-    textStore.replaceState('hello');
+    textStore.replaceState(() => 'hello');
     expect(textStore.getState()).toBe('hello');
     textStore.syncState('hello world');
     expect(textValue).toBe('hello');

@@ -5,10 +5,10 @@ import { ReadonlyNonBasic, CreateOneOptions } from './types';
 let ID = 0;
 function getID() {
   ID++;
-  return `${ID}`;
+  return `__${ID}`;
 }
 
-export let eventBus: eventemitter3;
+export const eventBus = new eventemitter3();
 
 export function createOne<T>(
   initialState: ReadonlyNonBasic<T>,
@@ -22,10 +22,6 @@ export function createOne<T>(
     options.useEffect === undefined || options.useEffect
       ? useEffect
       : useLayoutEffect;
-
-  if (eventBus === undefined) {
-    eventBus = new eventemitter3();
-  }
 
   const EVENT_NAME = getID();
 
