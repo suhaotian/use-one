@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { CounterExample } from '../example/CounterExample';
-import { createOne } from '../src';
+import { create } from '../src';
 
 describe('it', () => {
   it('renders without crashing', () => {
@@ -10,8 +10,8 @@ describe('it', () => {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('createOne string', () => {
-    const [, textStore] = createOne('');
+  it('create string', () => {
+    const [, textStore] = create('');
     expect(textStore.getState()).toBe('');
     let textValue = '';
     const unsubscribe = textStore.subscribe(value => {

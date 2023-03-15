@@ -17,7 +17,7 @@
 
 ## API
 
-- `createOne` - e.g: `createOne<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
+- `create` - e.g: `create<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
   if the options useEffect is false, will use useLayoutEffect
   - returns `[useHook, store]`
     - `store` methods:
@@ -48,13 +48,13 @@ pnpm install use-one
 
 ```ts
 // useCount.ts
-import { createOne } from 'use-one';
+import { create } from 'use-one';
 
 const initialState = { count: 0 };
 
 // type CountStateType = typeof initialState;
-// const [useCount, countStore] = createOne<CountStateType>(initialState);
-const [useCount, countStore] = createOne(initialState);
+// const [useCount, countStore] = create<CountStateType>(initialState);
+const [useCount, countStore] = create(initialState);
 
 export { useCount, countStore };
 

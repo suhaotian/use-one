@@ -15,3 +15,4 @@
 
 - Clean types again
 - `syncState` and `replaceState` support `oldState => newState`
+- Breaking Change: `createOne` change to `create`

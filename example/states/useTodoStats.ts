@@ -1,6 +1,6 @@
 /** Generator by `use-one-templates` https://github.com/suhaotian/use-one-templates */
 
-import { createOne } from '../../src';
+import { create } from '../../src';
 import { todoListStore, todoListSelectors } from './todoList';
 
 let initialState = {
@@ -15,7 +15,7 @@ export type TodoStatsStateType = Readonly<typeof initialState>;
 
 export const todoStatsInitialState: TodoStatsStateType = initialState;
 
-const [useTodoStats, todoStatsStore] = createOne(todoStatsInitialState);
+const [useTodoStats, todoStatsStore] = create(todoStatsInitialState);
 
 export { useTodoStats, todoStatsStore };
 

@@ -1,6 +1,6 @@
 /** Generator by `use-one-templates` https://github.com/suhaotian/use-one-templates */
 
-import { createOne } from '../../src';
+import { create } from '../../src';
 
 let initialState = '';
 
@@ -8,7 +8,7 @@ export type TodoInputValueStateType = Readonly<typeof initialState>;
 
 export const todoInputValueInitialState: TodoInputValueStateType = initialState;
 
-const [useTodoInputValue, todoInputValueStore] = createOne<
+const [useTodoInputValue, todoInputValueStore] = create<
   TodoInputValueStateType
 >(todoInputValueInitialState);
 export { useTodoInputValue, todoInputValueStore };
