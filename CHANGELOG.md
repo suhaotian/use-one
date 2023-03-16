@@ -16,3 +16,7 @@
 - Clean types again
 - `syncState` and `replaceState` support `oldState => newState`
 - Breaking Change: `createOne` change to `create`
+
+### 1.0.0-beta.3
+
+- `export type createOptions` => `export type CreateOptions`

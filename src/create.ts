@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import eventemitter3 from 'eventemitter3';
-import { ReadonlyNonBasic, createOptions } from './types';
+import { ReadonlyNonBasic, CreateOptions } from './types';
 
 let ID = 0;
 function getID() {
@@ -12,7 +12,7 @@ export const eventBus = new eventemitter3();
 
 export function create<T>(
   initialState: ReadonlyNonBasic<T>,
-  options?: createOptions
+  options?: CreateOptions
 ) {
   options = options || {
     useEffect: true,
