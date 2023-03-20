@@ -20,3 +20,4 @@
 ### 1.0.0-beta.3
 
 - `export type createOptions` => `export type CreateOptions`
+- add back `createOne` but deprecated

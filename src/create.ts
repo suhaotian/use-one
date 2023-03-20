@@ -10,6 +10,11 @@ function getID() {
 
 export const eventBus = new eventemitter3();
 
+/**
+ * @deprecated Please use `create`, `createOne` will remove in 1.1.0
+ */
+export const createOne = create;
+
 export function create<T>(
   initialState: ReadonlyNonBasic<T>,
   options?: CreateOptions
