@@ -1,23 +1,25 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import { CounterExample } from '../example/CounterExample';
-import { createOne } from '../src';
+import { create } from '../src';
 
 describe('it', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<CounterExample />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const rootEl = createRoot(div);
+
+    rootEl.render(<CounterExample />);
+    rootEl.unmount();
   });
 
-  it('createOne string', () => {
-    const [, textStore] = createOne('');
+  it('create string', () => {
+    const [, textStore] = create('');
     expect(textStore.getState()).toBe('');
     let textValue = '';
     const unsubscribe = textStore.subscribe(value => {
       textValue = value;
     });
-    textStore.replaceState('hello');
+    textStore.replaceState(() => 'hello');
     expect(textStore.getState()).toBe('hello');
     textStore.syncState('hello world');
     expect(textValue).toBe('hello');

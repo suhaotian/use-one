@@ -1,6 +1,6 @@
 /** Generator by `use-one-templates` https://github.com/suhaotian/use-one-templates */
 
-import { createOne } from '../../src';
+import { create } from '../../src';
 
 let initialState = 0;
 
@@ -8,7 +8,7 @@ export type CountStateType = Readonly<typeof initialState>;
 
 export const countInitialState: CountStateType = initialState;
 
-const [useCount, countStore] = createOne<CountStateType>(countInitialState);
+const [useCount, countStore] = create<CountStateType>(countInitialState);
 export { useCount, countStore };
 
 export const countSelectors = {
@@ -22,18 +22,18 @@ export const countSelectors = {
 
 export const countActions = {
   reset() {
-    countStore.replaceState(countInitialState);
+    countStore.replaceState(() => countInitialState);
   },
   '+1': () => {
-    countStore.replaceState(countSelectors.count + 1);
+    countStore.replaceState((count) => count + 1);
   },
   '-1': () => {
-    countStore.replaceState(countSelectors.count - 1);
+    countStore.replaceState((count) => count - 1);
   },
   'async+1': async (ms: number) => {
     /* @todo need to clearTimeout */
     setTimeout(() => {
-      countStore.replaceState(countSelectors.count + 1);
+      countStore.replaceState((count) => count + 1);
     }, ms);
   },
 };

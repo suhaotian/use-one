@@ -1,68 +1,34 @@
+[![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
+[![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
+![min size](https://badgen.net/bundlephobia/min/use-one?color=green)
+[![install size](https://packagephobia.com/badge?p=use-one@latest)](https://packagephobia.com/result?p=use-one@latest)
+![license](https://badgen.net/npm/license/use-one?color=green)
+[![author](https://badgen.net/badge/icon/Made%20by%20suhaotian?icon=github&label&color=black&labelColor=black)](https://github.com/suhaotian)
+
 # use-one
 
-[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app. 
+[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app.
 
 **Features**
 
 - Easy share state anywhere
 - No more complex concepts, only useHook
 - Write in TypeScript
-- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
 - Tiny size (with Dependencies together only gzip 2KB!)
-
-**Online Demos (CodeSandbox)**
-
-[Count Demo](https://codesandbox.io/embed/hidden-hooks-i4z28?fontsize=14&hidenavigation=1&theme=dark)
-
-[Text Input Demo](https://codesandbox.io/s/use-one-text-input-demo-fhfph?fontsize=14&hidenavigation=1&theme=dark)
-
-### More Examples
-
-[https://use-one.com/demo.html](https://use-one.com/demo.html)
-
-[More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
-
-## API
-
-- `createOne` - e.g: `createOne<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
-  if the options useEffect is false, will use useLayoutEffect
-  - returns `[useHook, store]`
-    - `store` methods:
-      - `.getState()` get the state
-      - `.replaceState(newState)` set the state
-      - `.forceUpdate()` force update
-      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
-      - `.syncState(newState)` sync state without update, useful for list components update
-      - `.destroy` clear event
-
-### Boilerplate Code Generator
-
-Please see [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
 
 ## Install
 
 **npm**
 
 ```bash
-npm install use-one eventemitter3 --save
+npm install use-one  --save
 ```
 
-**yarn**
+**pnpm**
 
 ```bash
-yarn add use-one eventemitter3
+pnpm install use-one
 ```
-
-**UMD**
-
-CDN
-
-```html
-<script src="https://unpkg.com/eventemitter3@4.0.4/umd/eventemitter3.min.js"></script>
-<script src="https://unpkg.com/use-one@0.9.5/dist/useone.umd.production.min.js"></script>
-```
-
-Browser Namespace: UseOne.createOne
 
 ## Usage
 
@@ -70,13 +36,13 @@ Browser Namespace: UseOne.createOne
 
 ```ts
 // useCount.ts
-import { createOne } from 'use-one';
+import { create } from 'use-one';
 
 const initialState = { count: 0 };
 
 // type CountStateType = typeof initialState;
-// const [useCount, countStore] = createOne<CountStateType>(initialState);
-const [useCount, countStore] = createOne(initialState);
+// const [useCount, countStore] = create<CountStateType>(initialState);
+const [useCount, countStore] = create(initialState);
 
 export { useCount, countStore };
 
@@ -139,22 +105,22 @@ export default function App() {
 }
 ```
 
-### Todos
+### Examples
 
-- [x] unit tests
-- [ ] performance benchmark test
-- [x] publish to npm
-- [ ] ~~vue support~~
-- [ ] ~~svelte support~~
-- [x] offical website
-- [ ] better documention
-- [x] more examples
-- [x] \[store\].setState replace with .replaceState
-- [x] ~~vscode snippet plugin~~ we have [use-one-templates](https://github.com/suhaotian/use-one-templates) now
+[Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
-### Bugs
+## API
 
-TodoList example if we add useTodoList in TodoItem component, and click remove button 4 times, the child component still not remove! (Current solution was dont use `hook` in loop condition)
+- `create` - e.g: `create<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
+  if the options useEffect is false, will use useLayoutEffect
+  - returns `[useHook, store]`
+    - `store` methods:
+      - `.getState()` get the state
+      - `.replaceState(newState)` set the state
+      - `.forceUpdate()` force update
+      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
+      - `.syncState(newState)` sync state without update, useful for list components update
+      - `.destroy` clear event
 
 ### Dependencies
 

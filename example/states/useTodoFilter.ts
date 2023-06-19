@@ -1,6 +1,6 @@
 /** Generator by `use-one-templates` https://github.com/suhaotian/use-one-templates */
 
-import { createOne } from '../../src';
+import { create } from '../../src';
 
 export enum TodoFilterEnum {
   'Show ALL' = 'Show ALL',
@@ -14,7 +14,7 @@ export type TodoFilterStateType = Readonly<TodoFilterEnum>;
 
 export const todoFilterInitialState: TodoFilterStateType = initialState;
 
-const [useTodoFilter, todoFilterStore] = createOne<TodoFilterStateType>(
+const [useTodoFilter, todoFilterStore] = create<TodoFilterStateType>(
   todoFilterInitialState
 );
 export { useTodoFilter, todoFilterStore };

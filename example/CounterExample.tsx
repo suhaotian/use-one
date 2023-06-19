@@ -29,8 +29,10 @@ export const CounterExample = () => {
         {items.map((j, i) => {
           return (
             <li key={i}>
-              <ShowCount />
-              {j}
+              <>
+                <ShowCount />
+                {j}
+              </>
             </li>
           );
         })}
