@@ -11,3 +11,8 @@ yarn.lock
 package-lock.json
 .npmrc
 .parcel-cache
+
+coverage
+.rollup.cache
+playwright-report
+test-results

@@ -30,13 +30,13 @@ export function create<T>(
 
   const EVENT_NAME = getID();
 
-  let updateCountRef = 0;
+  let updateCount = 0;
   let isDestroy = false;
   let _state = initialState;
 
   function emitUpdate() {
     if (isDestroy) {
-      throw new Error(
+      console.warn(
         `The state ${options?.name || EVENT_NAME} already destroyed`
       );
     }
@@ -66,8 +66,8 @@ export function create<T>(
 
     _useEffect(() => {
       function updater() {
-        updateCountRef++;
-        setUpdateCount(updateCountRef);
+        updateCount++;
+        setUpdateCount(updateCount);
       }
       eventBus.on(EVENT_NAME, updater);
 
@@ -90,11 +90,11 @@ export function create<T>(
     },
     forceUpdate: emitUpdate,
     syncState,
-    getUpdateCount: () => updateCountRef,
+    getUpdateCount: () => updateCount,
     destroy: () => {
       eventBus.off(EVENT_NAME);
       isDestroy = true;
-      (updateCountRef as unknown) = null;
+      (updateCount as unknown) = null;
       (_state as unknown) = null;
     },
   };

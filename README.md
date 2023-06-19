@@ -9,25 +9,6 @@
 - Write in TypeScript
 - Tiny size (with Dependencies together only gzip 2KB!)
 
-### More Examples
-
-[https://use-one.com/demo.html](https://use-one.com/demo.html)
-
-[More Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
-
-## API
-
-- `create` - e.g: `create<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
-  if the options useEffect is false, will use useLayoutEffect
-  - returns `[useHook, store]`
-    - `store` methods:
-      - `.getState()` get the state
-      - `.replaceState(newState)` set the state
-      - `.forceUpdate()` force update
-      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
-      - `.syncState(newState)` sync state without update, useful for list components update
-      - `.destroy` clear event
-
 ## Install
 
 **npm**
@@ -116,6 +97,23 @@ export default function App() {
   );
 }
 ```
+
+### Examples
+
+[Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
+
+## API
+
+- `create` - e.g: `create<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
+  if the options useEffect is false, will use useLayoutEffect
+  - returns `[useHook, store]`
+    - `store` methods:
+      - `.getState()` get the state
+      - `.replaceState(newState)` set the state
+      - `.forceUpdate()` force update
+      - `.subscribe(cb: (state) => {})` subscribe `.replaceState` update, return unsubscribe function
+      - `.syncState(newState)` sync state without update, useful for list components update
+      - `.destroy` clear event
 
 ### Dependencies
 

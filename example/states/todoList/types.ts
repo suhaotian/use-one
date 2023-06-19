@@ -6,4 +6,4 @@ export interface TodoItemType {
   isComplete: boolean;
 }
 
-export { TodoListStateType };
+export type { TodoListStateType };

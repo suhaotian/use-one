@@ -1,13 +1,15 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import { CounterExample } from '../example/CounterExample';
 import { create } from '../src';
 
 describe('it', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<CounterExample />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const rootEl = createRoot(div);
+
+    rootEl.render(<CounterExample />);
+    rootEl.unmount();
   });
 
   it('create string', () => {
