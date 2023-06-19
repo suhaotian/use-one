@@ -1,3 +1,10 @@
+[![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
+[![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
+![min size](https://badgen.net/bundlephobia/min/use-one?color=green)
+[![install size](https://packagephobia.com/badge?p=use-one@latest)](https://packagephobia.com/result?p=use-one@latest)
+![license](https://badgen.net/npm/license/use-one?color=green)
+[![author](https://badgen.net/badge/icon/Made%20by%20suhaotian?icon=github&label&color=black&labelColor=black)](https://github.com/suhaotian)
+
 # use-one
 
 [`use-one`](/) is a HOH(higher-order hook) for share state between components in react app.

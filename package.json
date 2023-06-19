@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "license": "MIT",
   "packageManager": "pnpm@7.28.0",
   "repository": {
@@ -13,11 +13,12 @@
   "bugs": {
     "url": "https://github.com/suhaotian/use-one/issues"
   },
-  "homepage": "https://use-one.com",
+  "homepage": "https://github.com/suhaotian/use-one",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
+    "types": "./dist/types/index.d.ts",
     "require": "./dist/index.cjs",
     "import": "./dist/index.mjs",
     "module": "./dist/index.esm.js"
