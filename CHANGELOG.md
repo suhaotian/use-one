@@ -21,3 +21,7 @@
 
 - `export type createOptions` => `export type CreateOptions`
 - add back `createOne` but deprecated
+
+### 1.0.0-beta.4
+
+- add test, e2e tests
