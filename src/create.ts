@@ -11,7 +11,7 @@ function getID() {
 export const eventBus = new eventemitter3();
 
 /**
- * @deprecated Please use `create`, `createOne` will remove in 1.1.0
+ * @deprecated Please use `create`, `createOne` will remove in 2.0
  */
 export const createOne = create;
 
@@ -43,8 +43,9 @@ export function create<T>(
     eventBus?.emit(EVENT_NAME, _state);
   }
 
-  // Sync state without emit to rerender component.
-  // Useful for performance optimization in loop components (see example/TodoListExample.tsx)
+  /*
+   * Sync state without emit to rerender component
+   */
   const syncState = (
     newValue:
       | ReadonlyNonBasic<T>
@@ -56,7 +57,7 @@ export function create<T>(
         : newValue;
   };
 
-  const replaceState = (newValue: Parameters<typeof syncState>[0]) => {
+  const setState = (newValue: Parameters<typeof syncState>[0]) => {
     syncState(newValue);
     emitUpdate();
   };
@@ -76,20 +77,24 @@ export function create<T>(
       };
     }, []);
 
-    return [_state, replaceState] as const;
+    return [_state, setState] as const;
   }
 
   const store = {
     getState: () => _state,
-    replaceState,
+    /**
+     * @deprecated Please use `.setState`, `.replaceState` will remove in 2.0
+     */
+    replaceState: setState,
+    setState,
+    forceUpdate: emitUpdate,
+    syncState,
     subscribe: (callback: (state: ReadonlyNonBasic<T>) => void) => {
       eventBus.on(EVENT_NAME, callback);
       return () => {
         eventBus.off(EVENT_NAME, callback);
       };
     },
-    forceUpdate: emitUpdate,
-    syncState,
     getUpdateCount: () => updateCount,
     destroy: () => {
       eventBus.off(EVENT_NAME);
