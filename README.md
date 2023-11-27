@@ -118,7 +118,7 @@ export default function App() {
       - `.setState(newState)` set the state
       - `.forceUpdate()` force update
       - `.subscribe(cb: (state) => {})` subscribe `.setState` update, return unsubscribe function
-      - `.syncState(newState)` sync state without update, useful for list components update
+      - `.syncState(newState)` sync state without update
       - `.destroy` clear event
 
 ### Dependencies
