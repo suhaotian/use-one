@@ -22,18 +22,18 @@ export const countSelectors = {
 
 export const countActions = {
   reset() {
-    countStore.replaceState(() => countInitialState);
+    countStore.setState(() => countInitialState);
   },
   '+1': () => {
-    countStore.replaceState((count) => count + 1);
+    countStore.setState((count) => count + 1);
   },
   '-1': () => {
-    countStore.replaceState((count) => count - 1);
+    countStore.setState((count) => count - 1);
   },
   'async+1': async (ms: number) => {
     /* @todo need to clearTimeout */
     setTimeout(() => {
-      countStore.replaceState((count) => count + 1);
+      countStore.setState((count) => count + 1);
     }, ms);
   },
 };

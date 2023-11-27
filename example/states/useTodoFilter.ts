@@ -27,10 +27,10 @@ export const todoFilterSelectors = {
 
 export const todoFilterActions = {
   reset() {
-    todoFilterStore.replaceState(todoFilterInitialState);
+    todoFilterStore.setState(todoFilterInitialState);
   },
 
   updateFilter: (value: TodoFilterEnum) => {
-    todoFilterStore.replaceState(value);
+    todoFilterStore.setState(value);
   },
 };

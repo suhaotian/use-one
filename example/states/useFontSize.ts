@@ -21,6 +21,6 @@ export const fontSizeSelectors = {
 
 export const fontSizeActions = {
   reset() {
-    fontSizeStore.replaceState(fontSizeInitialState);
+    fontSizeStore.setState(fontSizeInitialState);
   },
 };

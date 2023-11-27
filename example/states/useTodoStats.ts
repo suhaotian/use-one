@@ -20,7 +20,7 @@ const [useTodoStats, todoStatsStore] = create(todoStatsInitialState);
 export { useTodoStats, todoStatsStore };
 
 export const unsubscribe = todoListStore.subscribe(() => {
-  todoStatsStore.replaceState(todoListSelectors.getStats());
+  todoStatsStore.setState(todoListSelectors.getStats());
 });
 
 export const todoStatsSelectors = {
@@ -31,9 +31,9 @@ export const todoStatsSelectors = {
 
 export const todoStatsActions = {
   reset() {
-    todoStatsStore.replaceState(todoStatsInitialState);
+    todoStatsStore.setState(todoStatsInitialState);
   },
   updateStats() {
-    todoStatsStore.replaceState(todoListSelectors.getStats());
+    todoStatsStore.setState(todoListSelectors.getStats());
   },
 };

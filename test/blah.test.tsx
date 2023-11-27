@@ -19,14 +19,14 @@ describe('it', () => {
     const unsubscribe = textStore.subscribe(value => {
       textValue = value;
     });
-    textStore.replaceState(() => 'hello');
+    textStore.setState(() => 'hello');
     expect(textStore.getState()).toBe('hello');
     textStore.syncState('hello world');
     expect(textValue).toBe('hello');
     expect(textStore.getState()).toBe('hello world');
 
     unsubscribe();
-    textStore.replaceState('hello useOne');
+    textStore.setState('hello useOne');
 
     expect(textStore.getState()).toBe('hello useOne');
     expect(textValue).toBe('hello');

@@ -21,9 +21,9 @@ export const todoInputValueSelectors = {
 
 export const todoInputValueActions = {
   reset() {
-    todoInputValueStore.replaceState(todoInputValueInitialState);
+    todoInputValueStore.setState(todoInputValueInitialState);
   },
   changeValue(value: string) {
-    todoInputValueStore.replaceState(value);
+    todoInputValueStore.setState(value);
   },
 };

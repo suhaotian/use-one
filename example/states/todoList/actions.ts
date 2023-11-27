@@ -9,11 +9,11 @@ import { todoStatsActions } from '../useTodoStats';
 
 export const todoListActions = {
   reset() {
-    todoListStore.replaceState(todoListInitialState);
+    todoListStore.setState(todoListInitialState);
   },
 
   addItem: () => {
-    todoListStore.replaceState([
+    todoListStore.setState([
       ...todoListStore.getState(),
       {
         id: getId(),
@@ -48,6 +48,6 @@ export const todoListActions = {
 
   deleteItem: (item: TodoItemType) => {
     const newList = removeItemAtIndex(todoListStore.getState(), item.id);
-    todoListStore.replaceState(newList);
+    todoListStore.setState(newList);
   },
 };
