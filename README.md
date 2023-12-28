@@ -14,6 +14,7 @@
 - No more complex concepts, only useHook
 - Write in TypeScript
 - Tiny size (with Dependencies together only gzip 2KB!)
+- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
 
 ## Install
 
@@ -124,3 +125,7 @@ export default function App() {
 ### Dependencies
 
 - [eventemitter3](https://github.com/primus/eventemitter3)
+
+### Boilerplate Code Generator
+
+Check [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
