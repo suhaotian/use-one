@@ -105,6 +105,52 @@ export default function App() {
 }
 ```
 
+### Use with immer
+
+We can use:
+
+```ts
+...
+export function produceState(cb: (state: typeof initialState) => void) {
+  countStore.setState(produce(cb));
+}
+...
+```
+
+full code:
+
+```ts
+// useCount.ts
+import { create } from 'use-one';
+import { produce } from 'immer';
+
+const initialState = { count: 0 };
+
+// type CountStateType = typeof initialState;
+// const [useCount, countStore] = create<CountStateType>(initialState);
+const [useCount, countStore] = create(initialState);
+
+export { useCount, countStore };
+
+export function produceState(cb: (state: typeof initialState) => void) {
+  countStore.setState(produce(cb));
+}
+
+export const actions = {
+  produceState,
+  increment: () => {
+    produceState((state) => {
+      state.count++;
+    });
+  },
+  decrement: () => {
+    produceState((state) => {
+      state.count--;
+    });
+  },
+};
+```
+
 ### Examples
 
 [Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)

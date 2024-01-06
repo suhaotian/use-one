@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   eventemitter3:
     specifier: ^5.0.0
@@ -42,6 +46,9 @@ devDependencies:
   husky:
     specifier: ^8.0.3
     version: 8.0.3
+  immer:
+    specifier: ^10.0.3
+    version: 10.0.3
   jest:
     specifier: ^29.5.0
     version: 29.5.0
@@ -2840,6 +2847,10 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     dependencies:
       minimatch: 5.1.6
+    dev: true
+
+  /immer@10.0.3:
+    resolution: {integrity: sha512-pwupu3eWfouuaowscykeckFmVTpqbzW+rXFCX8rQLkZzM9ftBmU/++Ra+o+L27mz03zJTlyV4UUr+fdKNffo4A==}
     dev: true
 
   /import-local@3.1.0:
