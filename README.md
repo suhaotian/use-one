@@ -107,17 +107,15 @@ export default function App() {
 
 ### Use with immer
 
-We can use:
+We can wrap a new function that call `produceState` with immer's `produce`, for example:
 
 ```ts
-...
 export function produceState(cb: (state: typeof initialState) => void) {
   countStore.setState(produce(cb));
 }
-...
 ```
 
-full code:
+Full code:
 
 ```ts
 // useCount.ts
