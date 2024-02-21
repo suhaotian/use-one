@@ -25,17 +25,20 @@
     "react-hooks",
     "typescript"
   ],
+  "react-server": "./lib/create.server.js",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     "types": "./dist/types/index.d.ts",
+    "react-server": "./lib/create.server.js",
     "require": "./dist/index.cjs",
     "import": "./dist/index.mjs",
     "module": "./dist/index.esm.js"
   },
   "scripts": {
-    "build": "bunchee ./src/index.ts",
+    "build": "bunchee ./src/index.ts && npm run build:lib",
+    "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",
     "test": "pnpm jest",
@@ -44,10 +47,14 @@
   },
   "files": [
     "README.md",
-    "dist"
+    "dist",
+    "lib/create.server.d.ts",
+    "lib/create.server.js",
+    "lib/types.d.ts"
   ],
   "dependencies": {
-    "eventemitter3": "^5.0.0"
+    "eventemitter3": "^5.0.0",
+    "server-only": "^0.0.1"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -83,6 +90,7 @@
     "@playwright/test": "^1.33.0",
     "typescript": "^5.1.3",
     "tslib": "^2.5.3",
-    "immer": "^10.0.3"
+    "immer": "^10.0.3",
+    "@tsconfig/recommended": "^1.0.3"
   }
 }

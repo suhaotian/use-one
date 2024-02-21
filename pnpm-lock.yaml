@@ -55,9 +55,6 @@ devDependencies:
   immer:
     specifier: ^10.0.3
     version: 10.0.3
-  is-ci:
-    specifier: ^3.0.1
-    version: 3.0.1
   jest:
     specifier: ^29.5.0
     version: 29.5.0
@@ -2900,13 +2897,6 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
-    dev: true
-
-  /is-ci@3.0.1:
-    resolution: {integrity: sha512-ZYvCgrefwqoQ6yTyYUbQu64HsITZ3NfKX1lzaEYdkTDcfKzzCI/wthRRYKkdjHKFVgNiXKAKm65Zo1pk2as/QQ==}
-    hasBin: true
-    dependencies:
-      ci-info: 3.8.0
     dev: true
 
   /is-core-module@2.11.0:
