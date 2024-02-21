@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.2.0-beta.0
+
+- Feat: support server components (Inspired from https://www.npmjs.com/package/server-only?activeTab=code)
+
 ### 1.1.0
 
 - Depretated `.replaceState`, use `.setState` instead

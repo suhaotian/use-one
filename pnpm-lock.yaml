@@ -8,6 +8,9 @@ dependencies:
   eventemitter3:
     specifier: ^5.0.0
     version: 5.0.0
+  server-only:
+    specifier: ^0.0.1
+    version: 0.0.1
 
 devDependencies:
   '@babel/core':
@@ -28,6 +31,9 @@ devDependencies:
   '@playwright/test':
     specifier: ^1.33.0
     version: 1.33.0
+  '@tsconfig/recommended':
+    specifier: ^1.0.3
+    version: 1.0.3
   '@types/jest':
     specifier: ^29.5.2
     version: 29.5.2
@@ -49,6 +55,9 @@ devDependencies:
   immer:
     specifier: ^10.0.3
     version: 10.0.3
+  is-ci:
+    specifier: ^3.0.1
+    version: 3.0.1
   jest:
     specifier: ^29.5.0
     version: 29.5.0
@@ -1948,6 +1957,10 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
+  /@tsconfig/recommended@1.0.3:
+    resolution: {integrity: sha512-+jby/Guq9H8O7NWgCv6X8VAiQE8Dr/nccsCtL74xyHKhu2Knu5EAKmOZj3nLCnLm1KooUzKY+5DsnGVqhM8/wQ==}
+    dev: true
+
   /@types/babel__core@7.20.1:
     resolution: {integrity: sha512-aACu/U/omhdk15O4Nfb+fHgH/z3QsfQzpnvRZhYhThms83ZnAOZz7zZAWO7mn2yyNQaA4xTO8GLK3uqFU4bYYw==}
     dependencies:
@@ -2887,6 +2900,13 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
+    dev: true
+
+  /is-ci@3.0.1:
+    resolution: {integrity: sha512-ZYvCgrefwqoQ6yTyYUbQu64HsITZ3NfKX1lzaEYdkTDcfKzzCI/wthRRYKkdjHKFVgNiXKAKm65Zo1pk2as/QQ==}
+    hasBin: true
+    dependencies:
+      ci-info: 3.8.0
     dev: true
 
   /is-core-module@2.11.0:
@@ -4096,6 +4116,10 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: true
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
