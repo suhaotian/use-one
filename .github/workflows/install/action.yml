@@ -35,3 +35,5 @@ runs:
         pnpm build
         cd example
         pnpm install
+        cd ../next-example
+        pnpm install
