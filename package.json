@@ -91,6 +91,8 @@
     "typescript": "^5.1.3",
     "tslib": "^2.5.3",
     "immer": "^10.0.3",
-    "@tsconfig/recommended": "^1.0.3"
+    "@tsconfig/recommended": "^1.0.3",
+    "isomorphic-fetch": "^3.0.0",
+    "cheerio": "^1.0.0-rc.12"
   }
 }

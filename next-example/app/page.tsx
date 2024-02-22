@@ -7,7 +7,7 @@ export default async function Home() {
   const [{ count },] = useCount()
   return (
     <>
-      <div className="text-xl">{count}</div>
+      <div className="text-xl" test-id="server-count">{count}</div>
       <Counter></Counter>
     </>
   );
