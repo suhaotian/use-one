@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node server.js",
+    "pm2": "pm2 start server.js --wait-ready --name=next-example",
     "lint": "next lint"
   },
   "dependencies": {

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
-import { useCount, countStore } from "./useCount";
+import { countStore } from "./useCount";
 import { getCount } from "./api";
+// import ServerProvider from "./server-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const count = await getCount();
-  countStore.syncState({ count, });
+  const [, setCount] = countStore.use();
+  setCount(state => ({ ...state, count }))
 
   return (
-    <Provider count={count}>
+    <Provider count={{ count }}>
+      {/* <ServerProvider count={{ count }}> */}
       <html lang="en">
         <body className={inter.className}>{children}</body>
       </html>
+      {/* </ServerProvider> */}
     </Provider>
   );
 }

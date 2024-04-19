@@ -1,14 +1,15 @@
 'use client';
-import { actions, useCount } from "./useCount";
+
+import { countStore } from "./useCount";
 
 export function Counter() {
-  const [state, setState] = useCount();
-
+  const [state, setState] = countStore.use();
   return (
     <div>
       <h1 test-id="client-count">{state.count}</h1>
-      <button onClick={actions.increment}>+1</button>
-      <button onClick={actions.decrement}>-1</button>
+      <p suppressHydrationWarning>{JSON.stringify(countStore.getState())}</p>
+      <button onClick={countStore.increment}>+1</button>
+      <button onClick={countStore.decrement}>-1</button>
     </div>
   )
 }

@@ -160,6 +160,40 @@ export const countStore = Object.assign(
 );
 ```
 
+### Persist store
+
+> If you use in React-Native or Expo, Need install `@react-native-async-storage/async-storage`
+
+```ts
+import { create } from 'use-one';
+import { persistStore, wrapState, isClient } from 'use-one/persist';
+
+const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
+const [use, store] = create(initialState);
+
+console.log('isClient', isClient);
+isClient && persistStore(store, { key: '@CACHE_KEY', debounce: 100 });
+
+const actions = {
+  get state() {
+    return store.getState();
+  },
+  increment() {
+    store.setState({ count: this.state.count + 1 });
+  },
+  decrement() {
+    store.setState({ count: this.state.count - 1 });
+  },
+};
+export const countStore = Object.assign(
+  {
+    ...actions,
+    use,
+  },
+  store
+);
+```
+
 ### Examples
 
 [Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)

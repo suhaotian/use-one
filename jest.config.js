@@ -2,5 +2,5 @@
 module.exports = {
   testEnvironment: 'jest-environment-jsdom',
   modulePathIgnorePatterns: ['e2e-test'],
-  testTimeout: 20*1000
+  testTimeout: 30*1000
 };

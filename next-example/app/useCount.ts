@@ -1,21 +1,24 @@
 import { create } from 'use-one';
+import { persistStore, wrapState, isClient } from 'use-one/persist';
 import { updateCount } from './api';
 
-const initialState = { count: 0 };
+const initialState = wrapState({ count: 0 });
+const [use, store] = create(initialState);
 
-const [useCount, countStore] = create(initialState);
+console.log('isClient', isClient);
+isClient && persistStore(store, { key: '@COUNTER' });
 
-export { useCount, countStore };
-
-export const actions = {
+const actions = {
   increment: async () => {
-    const count = countStore.getState().count + 1;
-    countStore.setState({ count });
+    const count = store.getState().count + 1;
+    store.setState((state) => ({ ...state, count }));
     await updateCount(count);
   },
   decrement: async () => {
-    const count = countStore.getState().count - 1;
-    countStore.setState({ count });
+    const count = store.getState().count - 1;
+    store.setState((state) => ({ ...state, count }));
     await updateCount(count);
   },
 };
+
+export const countStore = Object.assign(actions, { use }, store);

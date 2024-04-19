@@ -19,4 +19,8 @@ playwright-report
 test-results
 *.d.ts
 *.js
+!next-example/server.js
 *.map
+count
+persist
+!src/persist

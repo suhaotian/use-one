@@ -8,10 +8,10 @@ const sleep = async (ms: number) =>
 let handler: ReturnType<typeof spawn>;
 
 beforeAll(() => {
-  handler = spawn('cd next-example && pnpm dev', {
+  handler = spawn('cd next-example && node server.js', {
     shell: true,
   });
-  return sleep(1000);
+  return sleep(5 * 1000);
 });
 
 afterAll(async () => {
@@ -25,7 +25,7 @@ afterAll(async () => {
 
 describe('should work with server/client components in next.js', () => {
   it('ok', async () => {
-    await fetch('http://localhost:3000/')
+    // await fetch('http://localhost:3000/');
     const text = await fetch('http://localhost:3000/').then((res) =>
       res.text()
     );

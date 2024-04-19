@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "1.2.0-beta.1",
+  "version": "1.3.0-beta.1",
   "license": "MIT",
   "packageManager": "pnpm@7.28.0",
   "repository": {
@@ -23,34 +23,54 @@
     "reactjs",
     "hooks",
     "react-hooks",
-    "typescript"
+    "typescript",
+    "react-native",
+    "expo",
+    "localStorage",
+    "AsyncStorage"
   ],
   "react-server": "./lib/create.server.js",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "require": "./dist/index.cjs",
   "exports": {
-    "types": "./dist/types/index.d.ts",
-    "react-server": "./lib/create.server.js",
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.mjs",
-    "module": "./dist/index.esm.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "react-server": "./lib/create.server.js",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "module": "./dist/index.esm.js"
+    },
+    "./persist": {
+      "types": "./persist/index.d.ts",
+      "require": "./persist/index.cjs",
+      "import": "./persist/index.mjs",
+      "module": "./persist/index.esm.js"
+    },
+    "./persist/cache": {
+      "types": "./persist/cache/index.d.ts",
+      "require": "./persist/cache/index.cjs",
+      "import": "./persist/cache/index.mjs",
+      "module": "./persist/cache/index.esm.js",
+      "react-native": "./persist/cache/rn.js"
+    }
   },
   "scripts": {
-    "build": "bunchee ./src/index.ts && npm run build:lib",
+    "build": "bunchee --external react,eventemitter3,@react-native-async-storage/async-storage && npm run build:lib",
     "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",
-    "test": "pnpm jest",
+    "test": "pnpm --filter=next-example build && pnpm jest",
     "test:e2e": "playwright test e2e-test",
-    "start-publish": "npm run build && npm publish --access public --no-git-checks --provenance --registry=https://registry.npmjs.org"
+    "start-publish": "npm run build && node scripts/purge-pkg-for-publish.mjs && npm publish --access public --no-git-checks --provenance --registry=https://registry.npmjs.org"
   },
   "files": [
     "README.md",
     "dist",
     "lib/create.server.d.ts",
     "lib/create.server.js",
-    "lib/types.d.ts"
+    "lib/types.d.ts",
+    "persist"
   ],
   "dependencies": {
     "eventemitter3": "^5.0.0",
@@ -78,7 +98,7 @@
     "husky": "^8.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "bunchee": "^3.3.4",
+    "bunchee": "^5.1.2",
     "react-test-renderer": "^18.2.0",
     "babel-jest": "^29.5.0",
     "@babel/core": "^7.22.5",
@@ -93,6 +113,7 @@
     "immer": "^10.0.3",
     "@tsconfig/recommended": "^1.0.3",
     "isomorphic-fetch": "^3.0.0",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "@react-native-async-storage/async-storage": "^1.23.1"
   }
 }
