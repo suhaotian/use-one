@@ -42,6 +42,7 @@ const initialState = { count: 0 };
 const [use, store] = create(initialState);
 
 const actions = {
+  use,
   get state() {
     return store.getState();
   },
@@ -54,10 +55,7 @@ const actions = {
 };
 
 export const countStore = Object.assign(
-  {
-    ...actions,
-    use,
-  },
+  actions,
   store
 );
 ```
@@ -135,6 +133,8 @@ const computed = {
 };
 
 const actions = {
+  ...computed,
+  use,
   produceState(cb: (state: typeof initialState) => void) {
     store.setState(produce(cb));
   },
@@ -151,11 +151,7 @@ const actions = {
 };
 
 export const countStore = Object.assign(
-  {
-    ...computed,
-    ...actions,
-    use,
-  },
+  actions,
   store
 );
 ```
@@ -179,6 +175,7 @@ isClient &&
   });
 
 const actions = {
+  use,
   get state() {
     return store.getState();
   },
@@ -189,13 +186,7 @@ const actions = {
     store.setState({ count: this.state.count - 1 });
   },
 };
-export const countStore = Object.assign(
-  {
-    ...actions,
-    use,
-  },
-  store
-);
+export const countStore = Object.assign(actions, store);
 ```
 
 ### Examples
