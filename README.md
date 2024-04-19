@@ -35,31 +35,26 @@ pnpm install use-one
 **Create one hook**
 
 ```ts
-// count-store.ts
+// stores/count.ts
 import { create } from 'use-one';
 
 const initialState = { count: 0 };
-
 const [use, store] = create(initialState);
 
-const computed = {
+const actions = {
   get state() {
     return store.getState();
   },
-};
-
-const actions = {
   increment() {
-    store.setState({ count: computed.state.count + 1 });
+    store.setState({ count: this.state.count + 1 });
   },
   decrement() {
-    store.setState({ count: computed.state.count - 1 });
+    store.setState({ count: this.state.count - 1 });
   },
 };
 
 export const countStore = Object.assign(
   {
-    ...computed,
     ...actions,
     use,
   },
@@ -72,11 +67,11 @@ export const countStore = Object.assign(
 ```tsx
 // CountExample.tsx
 import * as React from 'react';
-import { countStore } from './count-store';
+import { countStore } from './stores/count';
 
 const Counter = () => {
-  const [countState, setCountState] = countStore.use();
-  const { count } = countState;
+  countStore.use();
+  const { count } = countStore.state;
 
   return (
     <div>
@@ -86,7 +81,7 @@ const Counter = () => {
       <button
         onClick={() => {
           setTimeout(() => {
-            setCountState({
+            countStore.setState({
               count: countStore.state.count + 2,
             });
           }, 2000);
