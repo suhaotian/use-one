@@ -165,8 +165,7 @@ export const countStore = Object.assign(
 > If you use in React-Native or Expo, Need install `@react-native-async-storage/async-storage`
 
 ```ts
-import { create } from 'use-one';
-import { persistStore, wrapState, isClient } from 'use-one/persist';
+import { create, persistStore, wrapState, isClient } from 'use-one';
 
 const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
 const [use, store] = create(initialState);

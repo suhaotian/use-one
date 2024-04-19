@@ -1,5 +1,4 @@
-import { create } from 'use-one';
-import { persistStore, wrapState, isClient } from 'use-one/persist';
+import { create, persistStore, wrapState, isClient } from 'use-one';
 import { updateCount } from './api';
 
 const initialState = wrapState({ count: 0 });

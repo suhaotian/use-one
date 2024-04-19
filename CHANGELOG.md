@@ -1,5 +1,23 @@
 # CHANGELOG
 
+### 1.4.0-beta.0
+
+- Feat: `persistStore` support React Native / Expo
+
+---
+
+Usage:
+
+```ts
+import { create, persistStore, wrapState, isClient } from 'use-one';
+
+const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
+const [use, store] = create(initialState);
+
+console.log('isClient', isClient);
+isClient && persistStore(store, { key: '@CACHE_KEY', debounce: 100 });
+```
+
 ### 1.3.0-beta.0
 
 - Feat: add persist store, support react-native and web

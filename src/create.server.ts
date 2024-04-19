@@ -8,9 +8,9 @@ export const createOne = create;
 
 export function create<T>(
   initialState: ReadonlyNonBasic<T>,
+  // @ts-ignore
   options?: CreateOptions
 ) {
-  let isDestroy = false;
   let _state = initialState;
 
   /*
@@ -49,9 +49,10 @@ export function create<T>(
     },
     getUpdateCount: () => 0,
     destroy: () => {
-      isDestroy = true;
       (_state as unknown) = null;
     },
   };
   return [useOne, store] as const;
 }
+
+export type Store = ReturnType<typeof create<any>>[1];

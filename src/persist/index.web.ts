@@ -1,6 +1,8 @@
+import { getPersistStore, debounce } from './get-persist';
+
 export const isClient = typeof document !== 'undefined';
 
-export default {
+const cacheStore = {
   setItem(key: string, state: unknown) {
     localStorage.setItem(key, JSON.stringify(state));
   },
@@ -19,3 +21,5 @@ export default {
     localStorage.removeItem(key);
   },
 };
+const { wrapState, persistStore } = getPersistStore(cacheStore, isClient);
+export { debounce, wrapState, persistStore };
