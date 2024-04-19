@@ -22,7 +22,7 @@ export async function getCount(): Promise<number> {
 
 export async function updateCount(n: number) {
   const res = await fs.writeFile(file, n + '');
-  countStore.syncState({ count: n });
+  countStore.syncState((state) => ({ ...state, count: n }));
   revalidatePath('/', 'layout');
   return res;
 }
