@@ -1,29 +1,34 @@
+// count-store.ts
 import { create } from '../src';
 import { produce } from 'immer';
 
 const initialState = { count: 0 };
+const [use, store] = create(initialState);
 
-// type CountStateType = typeof initialState;
-// const [useCount, countStore] = create<CountStateType>(initialState);
-const [useHook, store] = create(initialState);
+const computed = {
+  get state() {
+    return store.getState();
+  },
+};
 
-export const countStore = store;
-export const useCount = useHook;
-
-export function produceState(cb: (state: typeof initialState) => void) {
-  store.setState(produce(cb));
-}
-
-export const actions = {
-  produceState,
-  increment: () => {
-    produceState((state) => {
+const actions = {
+  produceState(cb: (state: typeof initialState) => void) {
+    store.setState(produce(cb));
+  },
+  increment() {
+    this.produceState((state) => {
       state.count++;
     });
   },
-  decrement: () => {
-    produceState((state) => {
+  decrement() {
+    this.produceState((state) => {
       state.count--;
     });
   },
 };
+
+export const countStore = Object.assign({}, store, {
+  ...computed,
+  ...actions,
+  use,
+});

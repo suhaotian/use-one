@@ -35,25 +35,33 @@ pnpm install use-one
 **Create one hook**
 
 ```ts
-// useCount.ts
+// count-store.ts
 import { create } from 'use-one';
 
 const initialState = { count: 0 };
 
-// type CountStateType = typeof initialState;
-// const [useCount, countStore] = create<CountStateType>(initialState);
-const [useCount, countStore] = create(initialState);
+const [use, store] = create(initialState);
 
-export { useCount, countStore };
-
-export const actions = {
-  increment: () => {
-    countStore.setState({ count: countStore.getState().count + 1 });
-  },
-  decrement: () => {
-    countStore.setState({ count: countStore.getState().count - 1 });
+const computed = {
+  get state() {
+    return store.getState();
   },
 };
+
+const actions = {
+  increment() {
+    store.setState({ count: computed.state.count + 1 });
+  },
+  decrement() {
+    store.setState({ count: computed.state.count - 1 });
+  },
+};
+
+export const countStore = Object.assign({}, store, {
+  ...computed,
+  ...actions,
+  use,
+});
 ```
 
 **Use the hook**
@@ -61,23 +69,22 @@ export const actions = {
 ```tsx
 // CountExample.tsx
 import * as React from 'react';
-import { useCount, actions, countStore } from './useCount';
+import { countStore } from './count-store';
 
 const Counter = () => {
-  const [countState, setCountState] = useCount();
-
+  const [countState, setCountState] = countStore.use();
   const { count } = countState;
 
   return (
     <div>
-      <button onClick={actions.increment}>+1</button>
+      <button onClick={countStore.increment}>+1</button>
       <span>{count}</span>
-      <button onClick={actions.decrement}>-1</button>
+      <button onClick={countStore.decrement}>-1</button>
       <button
         onClick={() => {
           setTimeout(() => {
             setCountState({
-              count: countStore.getState().count + 2,
+              count: countStore.state.count + 2,
             });
           }, 2000);
         }}
@@ -89,10 +96,8 @@ const Counter = () => {
 };
 
 const ShowCountInOtherPlace = () => {
-  const [countState] = useCount();
-  const { count } = countState;
-
-  return <span>Count: {count}</span>;
+  const [state] = countStore.use();
+  return <span>Count: {state.count}</span>;
 };
 
 export default function App() {
@@ -118,35 +123,40 @@ export function produceState(cb: (state: typeof initialState) => void) {
 Full code:
 
 ```ts
-// useCount.ts
+// count-store.ts
 import { create } from 'use-one';
 import { produce } from 'immer';
 
 const initialState = { count: 0 };
+const [use, store] = create(initialState);
 
-// type CountStateType = typeof initialState;
-// const [useCount, countStore] = create<CountStateType>(initialState);
-const [useCount, countStore] = create(initialState);
+const computed = {
+  get state() {
+    return store.getState();
+  },
+};
 
-export { useCount, countStore };
-
-export function produceState(cb: (state: typeof initialState) => void) {
-  countStore.setState(produce(cb));
-}
-
-export const actions = {
-  produceState,
-  increment: () => {
-    produceState((state) => {
+const actions = {
+  produceState(cb: (state: typeof initialState) => void) {
+    store.setState(produce(cb));
+  },
+  increment() {
+    this.produceState((state) => {
       state.count++;
     });
   },
-  decrement: () => {
-    produceState((state) => {
+  decrement() {
+    this.produceState((state) => {
       state.count--;
     });
   },
 };
+
+export const countStore = Object.assign({}, store, {
+  ...computed,
+  ...actions,
+  use,
+});
 ```
 
 ### Examples

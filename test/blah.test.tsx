@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { CounterExample } from '../example/CounterExample';
 import { create } from '../src';
-import { countStore, useCount, actions as countActions, actions } from './useCountWithImmer';
+import { countStore, } from './useCountWithImmer';
 
 describe('it', () => {
   it('renders without crashing', () => {
@@ -51,16 +51,16 @@ describe('it', () => {
     countStore.subscribe(state => {
       result = state.count;
     })
-    expect(countStore.getState().count).toBe(0);
-    actions.increment();
+    expect(countStore.state.count).toBe(0);
+    countStore.increment();
     expect(countStore.getState().count).toBe(1);
     expect(result).toBe(1);
-    actions.increment();
+    countStore.increment();
     expect(countStore.getState().count).toBe(2);
     expect(result).toBe(2);
-    actions.decrement();
-    actions.decrement();
-    expect(countStore.getState().count).toBe(0);
+    countStore.decrement();
+    countStore.decrement();
+    expect(countStore.state.count).toBe(0);
     expect(result).toBe(0);
   })
 });
