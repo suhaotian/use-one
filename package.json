@@ -60,7 +60,7 @@
     "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",
-    "test": "pnpm --filter=next-example build && pnpm jest",
+    "test": "pnpm jest",
     "test:e2e": "playwright test e2e-test",
     "start-publish": "npm run build && node scripts/purge-pkg-for-publish.mjs && npm publish --access public --no-git-checks --provenance --registry=https://registry.npmjs.org"
   },
