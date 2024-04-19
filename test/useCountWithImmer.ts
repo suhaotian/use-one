@@ -27,8 +27,11 @@ const actions = {
   },
 };
 
-export const countStore = Object.assign({}, store, {
-  ...computed,
-  ...actions,
-  use,
-});
+export const countStore = Object.assign(
+  {
+    ...computed,
+    ...actions,
+    use,
+  },
+  store
+);
