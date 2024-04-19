@@ -26,7 +26,9 @@ export function wrapState<T = any>(state: T) {
   };
 }
 
-export async function persistStore(
+const defaultTransform = (state: any) => state;
+
+export async function persistStore<T = any>(
   store: Store,
   options: {
     key: string;
@@ -36,14 +38,18 @@ export async function persistStore(
       getItem: (key: string) => Promise<any> | any;
       removeItem: (key: string) => Promise<void> | void;
     };
+    transform?: (state: T) => T;
   }
 ) {
   const cache = options?.cache || defaultWebCacheAdapter;
+  const transform = options?.transform || defaultTransform;
   const result = await cache.getItem(options.key);
-  store.setState({
-    ...(result || {}),
-    ready: true,
-  });
+  store.setState(
+    transform({
+      ...(result || {}),
+      ready: true,
+    })
+  );
   const ms = options?.debounce === undefined ? 100 : options?.debounce;
   const setItem = debounce((key: string, state: unknown) => {
     cache.setItem(key, state);

@@ -6,7 +6,11 @@ const initialState = wrapState({ count: 0 });
 const [use, store] = create(initialState);
 
 console.log('isClient', isClient);
-isClient && persistStore(store, { key: '@COUNTER' });
+isClient &&
+  persistStore<typeof initialState>(store, {
+    key: '@COUNTER',
+    transform: (state) => state,
+  });
 
 const actions = {
   increment: async () => {

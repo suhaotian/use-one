@@ -172,7 +172,12 @@ const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
 const [use, store] = create(initialState);
 
 console.log('isClient', isClient);
-isClient && persistStore(store, { key: '@CACHE_KEY', debounce: 100 });
+isClient &&
+  persistStore(store, {
+    key: '@CACHE_KEY',
+    debounce: 100, // optional, default 100ms
+    transform: (state) => state, // optional
+  });
 
 const actions = {
   get state() {
