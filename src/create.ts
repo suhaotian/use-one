@@ -106,4 +106,4 @@ export function create<T>(
   return [useOne, store] as const;
 }
 
-export type Store = ReturnType<typeof create>[1];
+export type Store = ReturnType<typeof create<any>>[1];
