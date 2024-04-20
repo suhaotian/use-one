@@ -4,17 +4,30 @@
 ![license](https://badgen.net/npm/license/use-one?color=green)
 [![author](https://badgen.net/badge/icon/Made%20by%20suhaotian?icon=github&label&color=black&labelColor=black)](https://github.com/suhaotian)
 
-# use-one
+# Intro
 
-[`use-one`](/) is a HOH(higher-order hook) for share state between components in react app.
+[`use-one.js`](/) is a simple state management lib for React.js.
 
 **Features**
 
 - Easy share state anywhere
-- No more complex concepts, only useHook
+- No more complex concepts, only hooks
 - Write in TypeScript
-- Tiny size (with Dependencies together only gzip 2KB!)
+- Tiny size (gzip ~2KB)
 - Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
+
+# Table of Contents
+
+- [Intro](#intro)
+- [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [Use with immer](#use-with-immer)
+    - [Persist store](#persist-store)
+    - [Examples](#examples)
+  - [API](#api)
+  - [Dependencies](#dependencies)
+  - [Boilerplate Code Generator](#boilerplate-code-generator)
 
 ## Install
 
@@ -54,10 +67,7 @@ const actions = {
   },
 };
 
-export const countStore = Object.assign(
-  actions,
-  store
-);
+export const countStore = Object.assign(actions, store);
 ```
 
 **Use the hook**
@@ -68,8 +78,9 @@ import * as React from 'react';
 import { countStore } from './stores/count';
 
 const Counter = () => {
-  countStore.use();
-  const { count } = countStore.state;
+  const [state] = countStore.use();
+  const { count } = state;
+  // const { count } = countStore.state;
 
   return (
     <div>
@@ -150,10 +161,7 @@ const actions = {
   },
 };
 
-export const countStore = Object.assign(
-  actions,
-  store
-);
+export const countStore = Object.assign(actions, store);
 ```
 
 ### Persist store
@@ -206,10 +214,10 @@ export const countStore = Object.assign(actions, store);
       - `.syncState(newState)` sync state without update
       - `.destroy` clear event
 
-### Dependencies
+## Dependencies
 
 - [eventemitter3](https://github.com/primus/eventemitter3)
 
-### Boilerplate Code Generator
+## Boilerplate Code Generator
 
 Check [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
