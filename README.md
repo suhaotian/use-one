@@ -12,8 +12,8 @@
 
 - Easy share state anywhere
 - No more complex concepts, only hooks
-- Write in TypeScript
 - Tiny size (gzip ~2KB)
+- Write in TypeScript, Typesafe
 - Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
 
 # Table of Contents
@@ -22,9 +22,9 @@
 - [Table of Contents](#table-of-contents)
   - [Install](#install)
   - [Usage](#usage)
-    - [Use with immer](#use-with-immer)
+    - [Simple Demo](#simple-demo)
+    - [Using immer](#using-immer)
     - [Persist store](#persist-store)
-    - [Examples](#examples)
   - [API](#api)
   - [Dependencies](#dependencies)
   - [Boilerplate Code Generator](#boilerplate-code-generator)
@@ -45,7 +45,7 @@ pnpm install use-one
 
 ## Usage
 
-**Create one hook**
+### Simple Demo
 
 ```ts
 // stores/count.ts
@@ -117,7 +117,7 @@ export default function App() {
 }
 ```
 
-### Use with immer
+### Using immer
 
 We can wrap a new function that call `produceState` with immer's `produce`, for example:
 
@@ -130,7 +130,7 @@ export function produceState(cb: (state: typeof initialState) => void) {
 Full code:
 
 ```ts
-// count-store.ts
+// stores/count.ts
 import { create } from 'use-one';
 import { produce } from 'immer';
 
@@ -196,10 +196,6 @@ const actions = {
 };
 export const countStore = Object.assign(actions, store);
 ```
-
-### Examples
-
-[Examples Source Code](https://github.com/suhaotian/use-one/tree/master/example)
 
 ## API
 
