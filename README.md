@@ -135,11 +135,11 @@ const computed = {
 const actions = {
   ...computed,
   use,
-  produceState(cb: (state: typeof initialState) => void) {
+  produce(cb: (state: typeof initialState) => void) {
     store.setState(produce(cb));
   },
   increment() {
-    this.produceState((state) => {
+    this.produce((state) => {
       state.count++;
     });
   },
