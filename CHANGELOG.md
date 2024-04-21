@@ -1,5 +1,11 @@
 # CHANGELOG
 
+
+### 1.4.0-beta.2
+
+- Refactor: remove `eventemitter3` deps. Thanks @arkatsy ❤️
+
+
 ### 1.4.0-beta.1
 
 - Fix: `persistStore` wronge when cahce data is null
