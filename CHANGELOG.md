@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### 1.4.0-beta.1
+
+- Fix: `persistStore` wronge when cahce data is null
+
+
 ### 1.4.0-beta.0
 
 - Feat: `persistStore` support React Native / Expo
