@@ -25,7 +25,6 @@
     - [Using immer](#using-immer)
     - [Persist store](#persist-store)
   - [API](#api)
-  - [Dependencies](#dependencies)
   - [Boilerplate Code Generator](#boilerplate-code-generator)
 
 ## Install
@@ -48,7 +47,7 @@ pnpm install use-one
 
 ```ts
 // stores/count.ts
-import { create } from 'use-one';
+import { create, EventBus, eventBus } from 'use-one';
 
 const initialState = { count: 0 };
 const [use, store] = create(initialState);
@@ -207,10 +206,6 @@ export const countStore = Object.assign(actions, store);
       - `.subscribe(cb: (state) => {})` subscribe `.setState` update, return unsubscribe function
       - `.syncState(newState)` sync state without update
       - `.destroy` clear event
-
-## Dependencies
-
-- [eventemitter3](https://github.com/primus/eventemitter3)
 
 ## Boilerplate Code Generator
 

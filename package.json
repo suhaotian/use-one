@@ -45,7 +45,7 @@
     }
   },
   "scripts": {
-    "build": "bunchee --external react,eventemitter3,@react-native-async-storage/async-storage && npm run build:lib",
+    "build": "bunchee -m --external react,@react-native-async-storage/async-storage && npm run build:lib",
     "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",
@@ -58,7 +58,6 @@
     "dist"
   ],
   "dependencies": {
-    "eventemitter3": "^5.0.0",
     "server-only": "^0.0.1"
   },
   "peerDependencies": {
