@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
-import eventemitter3 from 'eventemitter3';
 import { ReadonlyNonBasic, CreateOptions } from './types';
+import { EventBus } from './bus';
 
 let ID = 0;
 function getID() {
@@ -8,7 +8,7 @@ function getID() {
   return `__${ID}`;
 }
 
-export const eventBus = new eventemitter3();
+export const eventBus = new EventBus();
 
 /**
  * @deprecated Please use `create`, `createOne` will remove in 2.0
