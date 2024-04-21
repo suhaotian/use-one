@@ -1,27 +1,13 @@
 // example
 import * as React from 'react';
 import {
-  useCount,
-  // countStore,
-  countActions,
-  countSelectors,
-} from './states/useCount';
+  countStore
+} from './states/count';
 import { Fragment } from 'react';
 
 const items = Array.from({ length: 10 * 100 });
 
 export const CounterExample = () => {
-  // useEffect(() => {
-  //   const unsubscribe = countStore.subscribe(newState => {
-  //     console.log('update new state:', newState);
-  //     console.log('select count:', countSelectors.state);
-  //   });
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
   return (
     <Fragment>
       <Counter />
@@ -44,15 +30,15 @@ export const CounterExample = () => {
 const Counter = () => {
   return (
     <div>
-      <button onClick={countActions['+1']}>+1</button>
+      <button onClick={countStore['+1']}>+1</button>
       <ShowCount />
-      <button onClick={countActions['-1']}>-1</button>
+      <button onClick={countStore['-1']}>-1</button>
     </div>
   );
 };
 
 const ShowCount = () => {
-  useCount();
+  countStore.use();
 
-  return <span>{countSelectors.count}</span>;
+  return <span>{countStore.count}</span>;
 };

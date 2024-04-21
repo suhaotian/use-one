@@ -5,25 +5,30 @@ import { create } from '../../src';
 let initialState = '';
 
 export type TodoInputValueStateType = Readonly<typeof initialState>;
-
 export const todoInputValueInitialState: TodoInputValueStateType = initialState;
 
-const [useTodoInputValue, todoInputValueStore] = create<
-  TodoInputValueStateType
->(todoInputValueInitialState);
-export { useTodoInputValue, todoInputValueStore };
+const [use, store] = create<TodoInputValueStateType>(
+  todoInputValueInitialState
+);
 
-export const todoInputValueSelectors = {
+const selectors = {
   get state(): TodoInputValueStateType {
-    return todoInputValueStore.getState();
+    return store.getState();
   },
 };
 
-export const todoInputValueActions = {
+const actions = {
   reset() {
-    todoInputValueStore.setState(todoInputValueInitialState);
+    store.setState(todoInputValueInitialState);
   },
   changeValue(value: string) {
-    todoInputValueStore.setState(value);
+    store.setState(value);
   },
 };
+
+export const todoInputValueStore = Object.assign(
+  selectors,
+  actions,
+  { use },
+  store
+);

@@ -8,19 +8,18 @@ export type FontSizeStateType = Readonly<typeof initialState>;
 
 export const fontSizeInitialState: FontSizeStateType = initialState;
 
-const [useFontSize, fontSizeStore] = create<FontSizeStateType>(
-  fontSizeInitialState
-);
-export { useFontSize, fontSizeStore };
+const [use, store] = create<FontSizeStateType>(fontSizeInitialState);
 
-export const fontSizeSelectors = {
+export const selectors = {
   get state(): FontSizeStateType {
-    return fontSizeStore.getState();
+    return store.getState();
   },
 };
 
-export const fontSizeActions = {
+export const actions = {
   reset() {
-    fontSizeStore.setState(fontSizeInitialState);
+    store.setState(fontSizeInitialState);
   },
 };
+
+export const fontSizeStore = Object.assign(selectors, actions, { use }, store);

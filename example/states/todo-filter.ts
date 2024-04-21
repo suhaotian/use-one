@@ -9,28 +9,29 @@ export enum TodoFilterEnum {
 }
 
 let initialState = TodoFilterEnum['Show ALL'];
-
 export type TodoFilterStateType = Readonly<TodoFilterEnum>;
-
 export const todoFilterInitialState: TodoFilterStateType = initialState;
 
-const [useTodoFilter, todoFilterStore] = create<TodoFilterStateType>(
-  todoFilterInitialState
-);
-export { useTodoFilter, todoFilterStore };
+const [use, store] = create<TodoFilterStateType>(todoFilterInitialState);
 
-export const todoFilterSelectors = {
+const selectors = {
   get state(): TodoFilterStateType {
-    return todoFilterStore.getState();
+    return store.getState();
   },
 };
 
-export const todoFilterActions = {
+const actions = {
   reset() {
-    todoFilterStore.setState(todoFilterInitialState);
+    store.setState(todoFilterInitialState);
   },
-
   updateFilter: (value: TodoFilterEnum) => {
-    todoFilterStore.setState(value);
+    store.setState(value);
   },
 };
+
+export const todoFilterStore = Object.assign(
+  selectors,
+  actions,
+  { use },
+  store
+);

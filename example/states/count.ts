@@ -8,32 +8,33 @@ export type CountStateType = Readonly<typeof initialState>;
 
 export const countInitialState: CountStateType = initialState;
 
-const [useCount, countStore] = create<CountStateType>(countInitialState);
-export { useCount, countStore };
+const [use, store] = create<CountStateType>(countInitialState);
 
-export const countSelectors = {
+const selectors = {
   get state(): CountStateType {
-    return countStore.getState();
+    return store.getState();
   },
   get count(): CountStateType {
-    return countStore.getState();
+    return store.getState();
   },
 };
 
-export const countActions = {
+const actions = {
   reset() {
-    countStore.setState(() => countInitialState);
+    store.setState(() => countInitialState);
   },
   '+1': () => {
-    countStore.setState((count) => count + 1);
+    store.setState((count) => count + 1);
   },
   '-1': () => {
-    countStore.setState((count) => count - 1);
+    store.setState((count) => count - 1);
   },
   'async+1': async (ms: number) => {
     /* @todo need to clearTimeout */
     setTimeout(() => {
-      countStore.setState((count) => count + 1);
+      store.setState((count) => count + 1);
     }, ms);
   },
 };
+
+export const countStore = Object.assign(selectors, actions, { use }, store);

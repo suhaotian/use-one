@@ -1,21 +1,17 @@
 import * as React from 'react';
 import { useState, useMemo } from 'react';
 import {
-  useTodoFilter,
-  todoFilterActions,
-  TodoFilterEnum,
-} from './states/useTodoFilter';
-import {
-  useTodoList,
-  todoListActions,
-  todoListSelectors,
+  todoListStore,
   TodoItemType,
-} from './states/todoList';
+} from './states/todo-list';
 import {
-  useTodoInputValue,
-  todoInputValueActions,
-} from './states/useTodoInputValue';
-import { useTodoStats } from './states/useTodoStats';
+  todoFilterStore,
+  TodoFilterEnum,
+} from './states/todo-filter';
+import {
+  todoInputValueStore,
+} from './states/todo-input-value';
+import { todoStatsStore } from './states/todo-stats';
 
 function useUpdate(): [number, Function] {
   const [count, setCount] = useState(0);
@@ -44,7 +40,7 @@ function TodoListStats() {
       // percentCompleted,
       formattedPercentCompleted,
     },
-  ] = useTodoStats();
+  ] = todoStatsStore.use();
 
   return (
     <ul>
@@ -57,7 +53,7 @@ function TodoListStats() {
 }
 
 function TodoListFilters() {
-  const [filter] = useTodoFilter();
+  const [filter] = todoFilterStore.use();
 
   return (
     <>
@@ -65,7 +61,7 @@ function TodoListFilters() {
       <select
         value={filter}
         onChange={e =>
-          todoFilterActions.updateFilter(
+          todoFilterStore.updateFilter(
             (e.target.value as any) as TodoFilterEnum
           )
         }
@@ -79,27 +75,27 @@ function TodoListFilters() {
 }
 
 function TodoItemCreator() {
-  const [inputValue] = useTodoInputValue();
+  const [inputValue] = todoInputValueStore.use();
 
   return (
     <div>
       <input
         type="text"
         value={inputValue}
-        onChange={e => todoInputValueActions.changeValue(e.target.value)}
+        onChange={e => todoInputValueStore.changeValue(e.target.value)}
       />
-      <button onClick={todoListActions.addItem}>Add</button>
+      <button onClick={todoListStore.addItem}>Add</button>
     </div>
   );
 }
 
 function List() {
-  useTodoFilter();
-  useTodoList();
+  todoFilterStore.use();
+  todoListStore.use();
 
   return (
     <>
-      {todoListSelectors.getFilterList().map(todoItem => (
+      {todoListStore.getFilterList().map(todoItem => (
         <TodoItem key={todoItem.id} id={todoItem.id} />
       ))}
     </>
@@ -108,13 +104,13 @@ function List() {
 
 function useTodoItemSelector(id: number): [TodoItemType, Function] {
   const [count, setUpdate] = useUpdate();
-  const item = useMemo(() => todoListSelectors.getItem(id), [count]);
+  const item = useMemo(() => todoListStore.getItem(id), [count]);
 
   return [item, setUpdate];
 }
 
 function TodoItem({ id }: { id: number }) {
-  useTodoList();
+  todoListStore.use();
 
   const [item, setUpdate] = useTodoItemSelector(id);
 
@@ -128,7 +124,7 @@ function TodoItem({ id }: { id: number }) {
             ...item,
             text: e.target.value,
           };
-          todoListActions.editItemText(updatedItem);
+          todoListStore.editItemText(updatedItem);
           setUpdate();
         }}
       />
@@ -140,11 +136,11 @@ function TodoItem({ id }: { id: number }) {
             ...item,
             isComplete: !item.isComplete,
           };
-          todoListActions.toggleItemCompletion(updatedItem);
+          todoListStore.toggleItemCompletion(updatedItem);
           setUpdate();
         }}
       />
-      <button onClick={() => todoListActions.deleteItem(item)}>X</button>
+      <button onClick={() => todoListStore.deleteItem(item)}>X</button>
     </div>
   );
 }
