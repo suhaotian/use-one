@@ -143,7 +143,6 @@ const computed = {
 };
 
 const actions = {
-  ...computed,
   use,
   produce(cb: (state: typeof initialState) => void) {
     store.setState(produce(cb));
@@ -154,13 +153,13 @@ const actions = {
     });
   },
   decrement() {
-    this.produceState((state) => {
+    this.produce((state) => {
       state.count--;
     });
   },
 };
 
-export const countStore = Object.assign(actions, store);
+export const countStore = Object.assign(actions, computed, store);
 ```
 
 ### Persist store

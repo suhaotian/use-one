@@ -8,9 +8,8 @@ export const getActions = (
   store: TodoListStore,
   initialState: TodoListState
 ) => {
-  const selectors = getSelectors(store, initialState);
+  // const selectors = getSelectors(store, initialState);
   return {
-    ...selectors,
     reset() {
       store.setState(initialState);
     },

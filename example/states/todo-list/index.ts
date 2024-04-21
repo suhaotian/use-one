@@ -1,6 +1,7 @@
 import { create, isClient, persistStore } from '../../../src';
 import { TodoListState, initialState } from './types';
 import { getActions } from './actions';
+import { getSelectors } from './selectors';
 import { todoStatsStore } from '../todo-stats';
 
 const [use, store] = create<TodoListState>(initialState);
@@ -8,6 +9,7 @@ isClient && persistStore(store, { key: '@todo-list' });
 
 export const todoListStore = Object.assign(
   getActions(store, initialState),
+  getSelectors(store, initialState),
   { use },
   store
 );

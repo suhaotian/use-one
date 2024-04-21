@@ -27,9 +27,9 @@ const actions = {
 };
 
 export const countStore = Object.assign(
+  actions,
+  computed,
   {
-    ...computed,
-    ...actions,
     use,
   },
   store
