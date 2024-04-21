@@ -1,27 +1,20 @@
 type EventHandler = (...args: any[]) => void;
 
 export class EventBus {
-  private events: { [key: string]: EventHandler[] } = {};
+  private events = new Map<string, EventHandler[]>();
 
   on(event: string, handler: EventHandler): void {
-    if (!this.events[event]) {
-      this.events[event] = [];
-    }
-    this.events[event].push(handler);
+    this.events.set(event, [...(this.events.get(event) || []), handler]);
   }
 
   off(event: string, handler?: EventHandler): void {
-    if (this.events[event]) {
-      this.events[event] = handler
-        ? this.events[event].filter((h) => h !== handler)
-        : [];
-    }
+    this.events.set(
+      event,
+      handler ? this.events.get(event)?.filter((h) => h !== handler) || [] : []
+    );
   }
 
   emit(event: string, ...args: any[]): void {
-    const handlers = this.events[event];
-    if (handlers) {
-      handlers.forEach((handler) => handler(...args));
-    }
+    this.events.get(event)?.forEach((cb) => cb(...args));
   }
 }
