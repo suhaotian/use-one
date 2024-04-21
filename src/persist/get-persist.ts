@@ -47,12 +47,13 @@ export function getPersistStore(
     const cache = options?.cache || storeCache;
     const transform = options?.transform || defaultTransform;
     const result = await cache.getItem(options.key);
-    store.setState(
-      transform({
+    store.setState((state: any) => {
+      return transform({
+        ...state,
         ...(result || {}),
         ready: true,
-      })
-    );
+      });
+    });
     const ms = options?.debounce === undefined ? 100 : options?.debounce;
     const setItem = debounce((key: string, state: unknown) => {
       cache.setItem(key, state);
