@@ -10,11 +10,10 @@
 
 **Features**
 
-- Easy share state anywhere
 - No more complex concepts, only hooks
+- Easy share state anywhere
 - Tiny size (gzip ~2KB)
 - Write in TypeScript, Typesafe
-- Boilerplate Code Generator support [use-one-templates](https://github.com/suhaotian/use-one-templates)
 
 # Table of Contents
 
