@@ -1,6 +1,6 @@
 import type { TodoListStore, TodoListState, TodoItemType } from './types';
 import { getId, replaceItemAtIndex, removeItemAtIndex } from './utils';
-import { getSelectors } from './selectors';
+// import { getSelectors } from './selectors';
 import { todoStatsStore } from '../todo-stats';
 import { todoInputValueStore } from '../todo-input-value';
 
@@ -30,7 +30,7 @@ export const getActions = (
 
     editItemText: (updatedItem: TodoItemType) => {
       const newList = replaceItemAtIndex(
-        store.getState(),
+        store.getState().todos,
         updatedItem.id,
         updatedItem
       );
@@ -40,7 +40,7 @@ export const getActions = (
 
     toggleItemCompletion: (updatedItem: TodoItemType) => {
       const newList = replaceItemAtIndex(
-        store.getState(),
+        store.getState().todos,
         updatedItem.id,
         updatedItem
       );
@@ -51,8 +51,8 @@ export const getActions = (
     },
 
     deleteItem: (item: TodoItemType) => {
-      const newList = removeItemAtIndex(store.getState(), item.id);
-      store.syncState((state) => ({ ...state, todos: newList }));
+      const newList = removeItemAtIndex(store.getState().todos, item.id);
+      store.setState((state) => ({ ...state, todos: newList }));
     },
   };
 };
