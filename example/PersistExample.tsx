@@ -2,7 +2,7 @@ import { useState } from "react";
 import { usePersist } from "use-one";
 import React = require("react");
 
-export function PersistCounter() {
+function useCount() {
   const [count, setCount] = useState(0);
   const [isReady, cleanCache] = usePersist<typeof count>({
     key: '@count-store-key',
@@ -10,6 +10,23 @@ export function PersistCounter() {
     setState: setCount,
     // setState: (state) => setCount(state),
   });
+  return {
+    isReady,
+    cleanCache,
+    count,
+    setCount,
+  }
+}
+
+export function PersistCounter() {
+  const { count, setCount, isReady, cleanCache } = useCount();
+  // const [count, setCount] = useState(0);
+  // const [isReady, cleanCache] = usePersist<typeof count>({
+  //   key: '@count-store-key',
+  //   getState: () => count,
+  //   setState: setCount,
+  //   // setState: (state) => setCount(state),
+  // });
   if (!isReady) return <div>Loading</div>;
 
   return (

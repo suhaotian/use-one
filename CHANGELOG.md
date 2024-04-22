@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### 1.4.0
+
+🥳 Beta finally end, publish v1.4.0
+
+New features compare to v1.1.1:
+
+- Feat: Add `persistStore` to persist your store
+- Feat: Add `usePersist` to persist react hook's state
+- Chore(README): README reorganize and code reorganize
+
 ### 1.4.0-beta.4
 
 - Fix: `isReady` always false after clean
