@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.4.0-beta.4
+
+- Fix: `isReady` always false after clean
+
 ### 1.4.0-beta.3
 
 - Feat: add `usePersist` hook to persist any hooks's state

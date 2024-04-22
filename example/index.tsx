@@ -7,6 +7,7 @@ import { Text, FontButton } from './FontSizeExample';
 import { TodoListExample } from './TodoListExample';
 import { RecoilTodoListExample } from './RecoilTodoListExample';
 import { RecoilRoot } from 'recoil';
+import { PersistCounter } from './PersistExample';
 
 const App = () => {
   React.useEffect(() => {
@@ -16,6 +17,8 @@ const App = () => {
   return (
     <React.StrictMode>
       <div>
+        <h3>Persist useState example</h3>
+        <PersistCounter />
         <h3>FontSize example</h3>
         <Text />
         <FontButton />

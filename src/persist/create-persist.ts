@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { debounce, type Cache } from './get-persist';
 
 interface CreateOptions {
@@ -21,6 +21,7 @@ export function createPersist(options: CreateOptions) {
   const { getItem, setItem: _setItem, removeItem } = options.cache;
   const setItem = debounce(_setItem, options.debounce);
   return function usePersist<T = any>({ key, setState, getState }: Options<T>) {
+    const [count, setForceUpdate] = useState(0);
     const initedRef = useRef(false);
 
     useEffect(() => {
@@ -31,6 +32,7 @@ export function createPersist(options: CreateOptions) {
         if (result) {
           setState(result);
         }
+        setForceUpdate((key) => key + 1);
       })();
     }, []);
 
@@ -44,7 +46,7 @@ export function createPersist(options: CreateOptions) {
     function clearItem() {
       return removeItem(key);
     }
-    const ready = initedRef.current;
+    const ready = useMemo(() => initedRef.current, [initedRef, count]);
     return [ready, clearItem] as const;
   };
 }

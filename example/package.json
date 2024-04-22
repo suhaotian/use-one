@@ -10,7 +10,8 @@
   "dependencies": {
     "react": "18.2.0",
     "react-app-polyfill": "^3.0.0",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "use-one": "file:.."
   },
   "alias": {
     "react": "../node_modules/react",

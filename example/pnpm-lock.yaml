@@ -14,6 +14,9 @@ dependencies:
   recoil:
     specifier: ^0.7.7
     version: 0.7.7(react@18.2.0)
+  use-one:
+    specifier: file:..
+    version: file:..(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -1820,6 +1823,10 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
+
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
@@ -1926,3 +1933,14 @@ packages:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
     dev: true
+
+  file:..(react@18.2.0):
+    resolution: {directory: .., type: directory}
+    id: file:..
+    name: use-one
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
+      server-only: 0.0.1
+    dev: false
