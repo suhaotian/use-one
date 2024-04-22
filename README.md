@@ -178,7 +178,7 @@ isClient &&
   persistStore<typeof initialState>(store, {
     key: '@CACHE_KEY',
     debounce: 100, // optional, default 100ms
-    transform: (state) => state, // optional
+    transform: (state) => state, // optional, transform the state before to `setState`
   });
 
 const actions = {
