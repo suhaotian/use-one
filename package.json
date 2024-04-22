@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "1.4.0-beta.2",
+  "version": "1.4.0-beta.3",
   "license": "MIT",
   "packageManager": "pnpm@7.28.0",
   "repository": {
@@ -45,7 +45,7 @@
     }
   },
   "scripts": {
-    "build": "bunchee -m --external react,@react-native-async-storage/async-storage && npm run build:lib",
+    "build": "bunchee --external react,@react-native-async-storage/async-storage && npm run build:lib",
     "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",

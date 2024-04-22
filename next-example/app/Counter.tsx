@@ -3,7 +3,7 @@
 import { countStore } from "./useCount";
 
 export function Counter() {
-  const [state, setState] = countStore.use();
+  const [state,] = countStore.use();
   return (
     <div>
       <h1 test-id="client-count">{state.count}</h1>

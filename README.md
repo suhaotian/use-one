@@ -12,6 +12,7 @@
 
 - No more complex concepts, only hooks
 - Easy share state anywhere
+- Easy persist store or your hooks state
 - Tiny size (gzip ~2KB)
 - Write in TypeScript, Typesafe
 
@@ -24,6 +25,7 @@
     - [Simple Demo](#simple-demo)
     - [Using immer](#using-immer)
     - [Persist store](#persist-store)
+    - [Persist any hooks state](#persist-any-hooks-state)
   - [API](#api)
   - [Boilerplate Code Generator](#boilerplate-code-generator)
 
@@ -166,14 +168,14 @@ export const countStore = Object.assign(actions, computed, store);
 > If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
 
 ```ts
-import { create, persistStore, wrapState, isClient } from 'use-one';
+import { create, persistStore, wrapState, isClient, sub } from 'use-one';
 
 const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
 const [use, store] = create(initialState);
 
 console.log('isClient', isClient);
 isClient &&
-  persistStore(store, {
+  persistStore<typeof initialState>(store, {
     key: '@CACHE_KEY',
     debounce: 100, // optional, default 100ms
     transform: (state) => state, // optional
@@ -192,6 +194,40 @@ const actions = {
   },
 };
 export const countStore = Object.assign(actions, store);
+```
+
+### Persist any hooks state
+
+For example, let's persist **useState**
+
+> If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
+
+```tsx
+import { useState } from 'react';
+import { usePersist } from 'use-one';
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+  const [isReady, clean] = usePersist<typeof count>({
+    key: '@count-store-key',
+    getState: () => count,
+    setState: setCount,
+    // setState: (state) => setCount(state),
+  });
+  if (!isReady) return <div>Loading</div>;
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <br />
+      <button onClick={() => setCount(count + 1)}>+1</button>
+      <br />
+      <button onClick={() => setCount(count - 1)}>-1</button>
+      <br />
+      <button onClick={clean}>Clean Cache</button>
+    </div>
+  );
+}
 ```
 
 ## API

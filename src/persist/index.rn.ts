@@ -1,29 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getPersistStore, debounce } from './get-persist';
-
-const cacheStore = {
-  setItem(key: string, state: unknown) {
-    return AsyncStorage.setItem(key, JSON.stringify(state));
-  },
-  async getItem(key: string) {
-    const result = await AsyncStorage.getItem(key);
-    if (result) {
-      try {
-        return JSON.parse(result);
-      } catch (e) {
-        AsyncStorage.removeItem(key).catch(() => {
-          //
-        });
-      }
-    }
-    return null;
-  },
-  removeItem(key: string) {
-    return AsyncStorage.removeItem(key);
-  },
-};
+import RNCache from './rn-cache';
+import { createPersist as createStatePersist } from './create-persist';
+import { Provider } from './provider';
 
 export const isClient = true;
-const { wrapState, persistStore } = getPersistStore(cacheStore, isClient);
+const { wrapState, persistStore } = getPersistStore(RNCache, isClient);
+export { debounce, wrapState, persistStore, Provider };
 
-export { debounce, wrapState, persistStore };
+export const usePersist = createStatePersist({ cache: RNCache, debounce: 100 });

@@ -7,7 +7,11 @@ import { setId } from './utils';
 
 const [use, store] = create<TodoListState>(initialState);
 (async () => {
-  await (isClient && persistStore(store, { key: '@todo-list' }));
+  await (isClient &&
+    persistStore<TodoListState>(store, {
+      key: '@todo-list',
+      transform: (state) => state,
+    }));
   const maxId = store
     .getState()
     .todos.map((item) => item.id)

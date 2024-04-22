@@ -1,30 +1,7 @@
-import type { Store } from '../create';
-
-export const debounce = <T extends (...args: any[]) => any>(
-  callback: T,
-  waitFor: number
-) => {
-  let timeout: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>): ReturnType<T> => {
-    let result: any;
-    timeout && clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      result = callback(...args);
-    }, waitFor);
-    return result;
-  };
-};
+import { Store, eventBus } from '../create';
 
 const defaultTransform = (state: any) => state;
-
-export function getPersistStore(
-  storeCache: {
-    setItem: (key: string, state: unknown) => Promise<void> | void;
-    getItem: (key: string) => Promise<any> | any;
-    removeItem: (key: string) => Promise<void> | void;
-  },
-  isClient: boolean
-) {
+export function getPersistStore(storeCache: Cache, isClient: boolean) {
   function wrapState<T = any>(state: T) {
     return {
       ...state,
@@ -36,11 +13,7 @@ export function getPersistStore(
     options: {
       key: string;
       debounce?: number;
-      cache?: {
-        setItem: (key: string, state: unknown) => Promise<void> | void;
-        getItem: (key: string) => Promise<any> | any;
-        removeItem: (key: string) => Promise<void> | void;
-      };
+      cache?: Cache;
       transform?: (state: T) => T;
     }
   ) {
@@ -65,4 +38,27 @@ export function getPersistStore(
   }
 
   return { wrapState, persistStore };
+}
+
+export interface Cache {
+  setItem: (key: string, state: unknown) => Promise<void> | void;
+  getItem: (key: string) => Promise<any> | any;
+  removeItem: (key: string) => Promise<void> | void;
+}
+
+export function debounce<T extends Function>(cb: T, wait = 100) {
+  let h: ReturnType<typeof setTimeout>;
+  let callable = (...args: any) => {
+    clearTimeout(h);
+    h = setTimeout(() => cb(...args), wait);
+  };
+  return <T>(<any>callable);
+}
+
+export function subscribeStore(fn: () => void) {
+  eventBus.on('sync-persist', fn);
+}
+
+export function emitSyncStore() {
+  eventBus.emit('sync-persist');
 }
