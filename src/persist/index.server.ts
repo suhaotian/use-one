@@ -1,6 +1,7 @@
 import type { Options } from './create-persist';
 import { getPersistStore, debounce } from './get-persist';
-import { Provider } from './provider';
+
+export * from './provider';
 
 export const isClient = typeof document !== 'undefined';
 const obj: any = {};
@@ -16,5 +17,5 @@ const cacheStore = {
   },
 };
 const { wrapState, persistStore } = getPersistStore(cacheStore, isClient);
-export { debounce, wrapState, persistStore, Provider };
+export { debounce, wrapState, persistStore };
 export const usePersist = (_options: Options<any>) => [() => null, true];
