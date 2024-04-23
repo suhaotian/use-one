@@ -55,10 +55,10 @@ export function debounce<T extends Function>(cb: T, wait = 100) {
   return <T>(<any>callable);
 }
 
-export function subscribeStore(fn: () => void) {
-  eventBus.on('sync-persist', fn);
+const key = 'persist';
+export function onPersistReady(fn: () => void) {
+  eventBus.on(key, fn);
 }
-
-export function emitSyncStore() {
-  eventBus.emit('sync-persist');
+export function emitPermistReady() {
+  eventBus.emit(key);
 }

@@ -1,9 +1,13 @@
 import { useEffect } from "react";
-import { emitSyncStore } from "./get-persist";
+import { emitPermistReady, onPersistReady } from "./get-persist";
 
+export {
+  emitPermistReady,
+  onPersistReady
+}
 export function Provider({ children }: { children?: React.ReactNode }) {
   useEffect(() => {
-    emitSyncStore();
+    emitPermistReady();
   }, []);
   return children;
 }
