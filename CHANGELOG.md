@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.4.1
+
+- Feat: export `emitPersistReady` and `onPersistReady` utils 
+  
 ### 1.4.0
 
 🥳 Beta finally end, publish v1.4.0
