@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect } from "react";
 import { emitPermistReady, onPersistReady } from "./get-persist";
 
