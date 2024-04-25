@@ -1,9 +1,14 @@
 # CHANGELOG
 
+### 1.4.2
+
+- Feat: add `use client` to `Provider.tsx` component
+- Chore(README): Add SSR application persist storage chapter
+
 ### 1.4.1
 
-- Feat: export `emitPersistReady` and `onPersistReady` utils 
-  
+- Feat: export `emitPersistReady` and `onPersistReady` utils
+
 ### 1.4.0
 
 🥳 Beta finally end, publish v1.4.0

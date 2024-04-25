@@ -25,6 +25,7 @@
     - [Simple Demo](#simple-demo)
     - [Using immer](#using-immer)
     - [Persist store](#persist-store)
+    - [Persist store in SSR application](#persist-store-in-ssr-application)
     - [Persist any hooks state](#persist-any-hooks-state)
   - [API](#api)
   - [Boilerplate Code Generator](#boilerplate-code-generator)
@@ -168,7 +169,7 @@ export const countStore = Object.assign(actions, computed, store);
 > If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
 
 ```ts
-import { create, persistStore, wrapState, isClient, sub } from 'use-one';
+import { create, persistStore, wrapState, isClient } from 'use-one';
 
 const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
 const [use, store] = create(initialState);
@@ -196,9 +197,62 @@ const actions = {
 export const countStore = Object.assign(actions, store);
 ```
 
+### Persist store in SSR application
+
+To prevent hydration error in SSR application(like Next.js, Remix..etc.), we can do this:
+
+- 1. Use `onPersistReady` to subscribe ready event to persist:
+
+```ts
+import {
+  create,
+  persistStore,
+  wrapState,
+  isClient,
+  onPersistReady,
+} from 'use-one';
+
+const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
+const [use, store] = create(initialState);
+
+onPersistReady(() => {
+  persistStore<typeof initialState>(store, {
+    key: '@CACHE_KEY',
+    debounce: 100, // optional, default 100ms
+    transform: (state) => state, // optional, transform the state before to `setState`
+  });
+});
+
+const actions = {
+  use,
+  get state() {
+    return store.getState();
+  },
+  increment() {
+    store.setState({ count: this.state.count + 1 });
+  },
+  decrement() {
+    store.setState({ count: this.state.count - 1 });
+  },
+};
+export const countStore = Object.assign(actions, store);
+```
+
+- 2. Add `PersistProvider` to your components to emit ready event:
+
+```tsx
+import { Provider as PersistProvider } from 'use-one';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <PersistProvider>{children}</PersistProvider>;
+}
+```
+
 ### Persist any hooks state
 
-For example, let's persist **useState**
+> This is a helper function, no relation with store.
+
+You persist any hooks state. For example, let's persist **useState**:
 
 > If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
 
