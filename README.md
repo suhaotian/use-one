@@ -2,8 +2,8 @@
 
 [![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
 [![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
-[![use-one's badge](https://deno.bundlejs.com/?q=use-one&badge=detailed&badge-style=for-the-badge)](https://bundlejs.com/?q=use-one)
-[![install size](https://packagephobia.com/badge?p=use-one@latest)](https://packagephobia.com/result?p=use-one@latest)
+<a href="https://pkg-size.dev/use-one"><img src="https://pkg-size.dev/badge/install/29671" title="Install size for use-one"></a>
+<a href="https://pkg-size.dev/use-one"><img src="https://pkg-size.dev/badge/bundle/3173" title="Bundle size for use-one"></a>
 ![license](https://badgen.net/npm/license/use-one?color=green)
 
 # Intro
