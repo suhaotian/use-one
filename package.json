@@ -1,8 +1,8 @@
 {
   "name": "use-one",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "license": "MIT",
-  "packageManager": "pnpm@7.28.0",
+  "packageManager": "pnpm@9.12.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/suhaotian/use-one.git"
@@ -45,7 +45,7 @@
     }
   },
   "scripts": {
-    "build": "bunchee --external react,@react-native-async-storage/async-storage && npm run build:lib",
+    "build": "bunchee --minify --external react,@react-native-async-storage/async-storage,server-only && npm run build:lib",
     "build:lib": "rm -rf lib && tsc --project tsconfig.build.json",
     "start:example": "cd example && pnpm i && pnpm start",
     "serve:example": "cd example && pnpm i && pnpm serve",
@@ -82,7 +82,7 @@
     "husky": "^8.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "bunchee": "^5.1.2",
+    "bunchee": "^6.3.2",
     "react-test-renderer": "^18.2.0",
     "babel-jest": "^29.5.0",
     "@babel/core": "^7.22.5",

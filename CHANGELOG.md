@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.5.0
+
+- Fix: build size
+
 ### 1.4.2
 
 - Feat: add `use client` to `Provider.tsx` component

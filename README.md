@@ -1,8 +1,10 @@
+# use-one: A simple state management lib for React.js.
+
 [![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
 [![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
+[![Size](https://deno.bundlejs.com/badge?q=xior@1.5.0&badge=detailed)](https://bundlejs.com/?q=use-one%401.5.0)
 [![install size](https://packagephobia.com/badge?p=use-one@latest)](https://packagephobia.com/result?p=use-one@latest)
 ![license](https://badgen.net/npm/license/use-one?color=green)
-[![author](https://badgen.net/badge/icon/Made%20by%20suhaotian?icon=github&label&color=black&labelColor=black)](https://github.com/suhaotian)
 
 # Intro
 
@@ -18,6 +20,7 @@
 
 # Table of Contents
 
+- [use-one: A simple state management lib for React.js.](#use-one-a-simple-state-management-lib-for-reactjs)
 - [Intro](#intro)
 - [Table of Contents](#table-of-contents)
   - [Install](#install)
