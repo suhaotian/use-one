@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.5.1
+
+- Add `peerDependenciesMeta` to package.json
+
 ### 1.5.0
 
 - Fix: build size
