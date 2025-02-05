@@ -71,7 +71,9 @@ const actions = {
   decrement() {
     store.setState({ count: this.state.count - 1 });
   },
-  // setState: 1 // Becareful!, If you uncomment this line, the property will replace by the below code, how to avoid this, check TypeScript Advanced Demo part in the document.
+  // setState: 1 // Be careful!, If you uncomment this line, 
+                 // the property will replace by the below code, how to avoid this, 
+                 // check TypeScript Advanced Demo part in the document.
 };
 
 export const countStore = Object.assign(actions, store);
