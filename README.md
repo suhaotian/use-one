@@ -30,6 +30,7 @@
     - [Persist store](#persist-store)
     - [Persist store in SSR application](#persist-store-in-ssr-application)
     - [Persist any hooks state](#persist-any-hooks-state)
+    - [Advanced TypeScript Demo](#advanced-typescript-demo)
   - [API](#api)
   - [Boilerplate Code Generator](#boilerplate-code-generator)
 
@@ -54,6 +55,7 @@ pnpm install use-one
 ```ts
 // stores/count.ts
 import { create, EventBus, eventBus } from 'use-one';
+// import { type StrictPropertyCheck } from 'use-one';
 
 const initialState = { count: 0 };
 const [use, store] = create(initialState);
@@ -69,6 +71,7 @@ const actions = {
   decrement() {
     store.setState({ count: this.state.count - 1 });
   },
+  // setState: 1 // Becareful!, If you uncomment this line, the property will replace by the below code, how to avoid this, check TypeScript Advanced Demo part in the document.
 };
 
 export const countStore = Object.assign(actions, store);
@@ -285,6 +288,36 @@ export function Counter() {
     </div>
   );
 }
+```
+
+### Advanced TypeScript Demo
+
+The previous simple demo has a problem, if we put `setState` or `getState` property to `actions` object, We do `Object.assign(actions, store)`, it will replace by `store`'s `.setState` or `.getState` (Check the API part), so to avoid this kind potensial problem, let's use `StrictPropertyCheck`:
+
+```ts
+import { create, type StrictPropertyCheck } from 'use-one';
+
+import { create, EventBus, eventBus } from 'use-one';
+
+const initialState = { count: 0 };
+const [use, store] = create(initialState);
+
+const _actions = {
+  use,
+  get state() {
+    return store.getState();
+  },
+  increment() {
+    store.setState({ count: this.state.count + 1 });
+  },
+  decrement() {
+    store.setState({ count: this.state.count - 1 });
+  },
+  // setState: 1 // If you uncomment this line, the code below will throw an error.
+};
+const actions: StrictPropertyCheck<typeof _actions> = _actions;
+
+export const countStore = Object.assign(actions, store);
 ```
 
 ## API

@@ -2,7 +2,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { CounterExample } from '../example/CounterExample';
 import { create } from '../src';
-import { countStore, } from './useCountWithImmer';
+import { countStore } from './useCountWithImmer';
+import { advancedTypeStore } from './advanced';
+
+
 
 describe('it', () => {
   it('renders without crashing', () => {
@@ -61,6 +64,24 @@ describe('it', () => {
     countStore.decrement();
     countStore.decrement();
     expect(countStore.state.count).toBe(0);
+    expect(result).toBe(0);
+  })
+
+  it('advanced types test', () => {
+    let result = 0;
+    advancedTypeStore.subscribe(state => {
+      result = state.count;
+    })
+    expect(advancedTypeStore.state.count).toBe(0);
+    advancedTypeStore.increment();
+    expect(advancedTypeStore.getState().count).toBe(1);
+    expect(result).toBe(1);
+    advancedTypeStore.increment();
+    expect(advancedTypeStore.getState().count).toBe(2);
+    expect(result).toBe(2);
+    advancedTypeStore.decrement();
+    advancedTypeStore.decrement();
+    expect(advancedTypeStore.state.count).toBe(0);
     expect(result).toBe(0);
   })
 });

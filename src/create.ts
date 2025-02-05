@@ -107,3 +107,13 @@ export function create<T>(
 }
 
 export type Store = ReturnType<typeof create<any>>[1];
+
+export type StrictPropertyCheck<T> = Exclude<
+  keyof T,
+  keyof Omit<T, keyof Store>
+> extends never
+  ? Omit<T, keyof Store>
+  : {
+      error: 'Extra properties detected';
+      extraProperties: Exclude<keyof T, keyof Omit<T, keyof Store>>;
+    };

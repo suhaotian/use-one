@@ -4,6 +4,7 @@
     "target": "es5",
     "module": "commonjs",
     "jsx": "react",
+    "strict": true,
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noUnusedLocals": true,
