@@ -1,4 +1,4 @@
-# use-one: A simple state management lib for React.js.
+# use-one: A simple state management lib for React.js
 
 [![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
 [![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
@@ -6,56 +6,54 @@
 <a href="https://pkg-size.dev/use-one"><img src="https://pkg-size.dev/badge/bundle/3173" title="Bundle size for use-one"></a>
 ![license](https://badgen.net/npm/license/use-one?color=green)
 
-# Intro
+# Introduction
 
-[`use-one.js`](/) is a simple state management lib for React.js.
+[`use-one`](/) is a lightweight state management library for React.js.
 
 **Features**
 
-- No more complex concepts, only hooks
-- Easy share state anywhere
-- Easy persist store or your hooks state
-- Tiny size (gzip ~2KB)
-- Write in TypeScript, Typesafe
+- Simple hook-based API with no complex concepts
+- Easy state sharing across components
+- Built-in persistence capabilities for stores and hook states
+- Minimal size (gzip ~2KB)
+- Written in TypeScript with full type safety
 
 # Table of Contents
 
-- [use-one: A simple state management lib for React.js.](#use-one-a-simple-state-management-lib-for-reactjs)
-- [Intro](#intro)
+- [use-one: A simple state management lib for React.js](#use-one-a-simple-state-management-lib-for-reactjs)
+- [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
-  - [Install](#install)
+  - [Installation](#installation)
   - [Usage](#usage)
-    - [Simple Demo](#simple-demo)
-    - [Using immer](#using-immer)
-    - [Persist store](#persist-store)
-    - [Persist store in SSR application](#persist-store-in-ssr-application)
-    - [Persist any hooks state](#persist-any-hooks-state)
-    - [Advanced TypeScript Demo](#advanced-typescript-demo)
-  - [API](#api)
-  - [Boilerplate Code Generator](#boilerplate-code-generator)
+    - [Basic Example](#basic-example)
+    - [Using Immer](#using-immer)
+    - [Persisting Store State](#persisting-store-state)
+    - [Persistence in SSR Applications](#persistence-in-ssr-applications)
+    - [Persisting Hook State](#persisting-hook-state)
+    - [Advanced TypeScript Usage](#advanced-typescript-usage)
+  - [API Reference](#api-reference)
+    - [`create<Type>(initialState, options?)`](#createtypeinitialstate-options)
+  - [Code Generation](#code-generation)
 
-## Install
+## Installation
 
 **npm**
-
 ```bash
-npm install use-one  --save
+npm install use-one --save
 ```
 
 **pnpm**
-
 ```bash
 pnpm install use-one
 ```
 
 ## Usage
 
-### Simple Demo
+### Basic Example
 
 ```ts
 // stores/count.ts
-import { create, EventBus, eventBus } from 'use-one';
-// import { type StrictPropertyCheck } from 'use-one';
+import { create } from 'use-one';
 
 const initialState = { count: 0 };
 const [use, store] = create(initialState);
@@ -71,15 +69,12 @@ const actions = {
   decrement() {
     store.setState({ count: this.state.count - 1 });
   },
-  // setState: 1 // Be careful!, If you uncomment this line, 
-                 // the property will replace by the below code, how to avoid this, 
-                 // check TypeScript Advanced Demo part in the document.
 };
 
 export const countStore = Object.assign(actions, store);
 ```
 
-**Use the hook**
+**Using the Store**
 
 ```tsx
 // CountExample.tsx
@@ -89,7 +84,6 @@ import { countStore } from './stores/count';
 const Counter = () => {
   const [state] = countStore.use();
   const { count } = state;
-  // const { count } = countStore.state;
 
   return (
     <div>
@@ -111,32 +105,24 @@ const Counter = () => {
   );
 };
 
-const ShowCountInOtherPlace = () => {
+const ShowCount = () => {
   const [state] = countStore.use();
   return <span>Count: {state.count}</span>;
 };
 
 export default function App() {
   return (
-    <React.Fragment>
+    <>
       <ShowCount />
       <Counter />
-    </React.Fragment>
+    </>
   );
 }
 ```
 
-### Using immer
+### Using Immer
 
-We can wrap a new function that call `produceState` with immer's `produce`, for example:
-
-```ts
-export function produceState(cb: (state: typeof initialState) => void) {
-  countStore.setState(produce(cb));
-}
-```
-
-Full code:
+Integrate with Immer for immutable state updates:
 
 ```ts
 // stores/count.ts
@@ -172,23 +158,23 @@ const actions = {
 export const countStore = Object.assign(actions, computed, store);
 ```
 
-### Persist store
+### Persisting Store State
 
-> If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
+For React Native or Expo applications, install `@react-native-async-storage/async-storage` first.
 
 ```ts
 import { create, persistStore, wrapState, isClient } from 'use-one';
 
-const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
+const initialState = wrapState({ count: 0 }); // Adds ready: false
 const [use, store] = create(initialState);
 
-console.log('isClient', isClient);
-isClient &&
+if (isClient) {
   persistStore<typeof initialState>(store, {
     key: '@CACHE_KEY',
-    debounce: 100, // optional, default 100ms
-    transform: (state) => state, // optional, transform the state before to `setState`
+    debounce: 100, // Optional, defaults to 100ms
+    transform: (state) => state, // Optional state transformer
   });
+}
 
 const actions = {
   use,
@@ -202,32 +188,31 @@ const actions = {
     store.setState({ count: this.state.count - 1 });
   },
 };
+
 export const countStore = Object.assign(actions, store);
 ```
 
-### Persist store in SSR application
+### Persistence in SSR Applications
 
-To prevent hydration error in SSR application(like Next.js, Remix..etc.), we can do this:
-
-- 1. Use `onPersistReady` to subscribe ready event to persist:
+To prevent hydration errors in SSR applications (Next.js, Remix, etc.):
 
 ```ts
+// store.ts
 import {
   create,
   persistStore,
   wrapState,
-  isClient,
   onPersistReady,
 } from 'use-one';
 
-const initialState = wrapState({ count: 0 }); // -> { ready: false, count: 0 }
+const initialState = wrapState({ count: 0 });
 const [use, store] = create(initialState);
 
 onPersistReady(() => {
   persistStore<typeof initialState>(store, {
     key: '@CACHE_KEY',
-    debounce: 100, // optional, default 100ms
-    transform: (state) => state, // optional, transform the state before to `setState`
+    debounce: 100,
+    transform: (state) => state,
   });
 });
 
@@ -243,12 +228,12 @@ const actions = {
     store.setState({ count: this.state.count - 1 });
   },
 };
+
 export const countStore = Object.assign(actions, store);
 ```
 
-- 2. Add `PersistProvider` to your components to emit ready event:
-
 ```tsx
+// layout.tsx
 import { Provider as PersistProvider } from 'use-one';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -256,13 +241,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 }
 ```
 
-### Persist any hooks state
+### Persisting Hook State
 
-> This is a helper function, no relation with store.
-
-You persist any hooks state. For example, let's persist **useState**:
-
-> If you are using React-Native or Expo, Need install `@react-native-async-storage/async-storage`
+Persist any hook's state independently of stores:
 
 ```tsx
 import { useState } from 'react';
@@ -274,32 +255,27 @@ export function Counter() {
     key: '@count-store-key',
     getState: () => count,
     setState: setCount,
-    // setState: (state) => setCount(state),
   });
-  if (!isReady) return <div>Loading</div>;
+
+  if (!isReady) return <div>Loading...</div>;
 
   return (
     <div>
       <h1>{count}</h1>
-      <br />
       <button onClick={() => setCount(count + 1)}>+1</button>
-      <br />
       <button onClick={() => setCount(count - 1)}>-1</button>
-      <br />
-      <button onClick={clean}>Clean Cache</button>
+      <button onClick={clean}>Clear Cache</button>
     </div>
   );
 }
 ```
 
-### Advanced TypeScript Demo
+### Advanced TypeScript Usage
 
-The previous simple demo has a problem, if we put `setState` or `getState` property to `actions` object, We do `Object.assign(actions, store)`, it will replace by `store`'s `.setState` or `.getState` (Check the API part), so to avoid this kind potensial problem, let's use `StrictPropertyCheck`:
+Prevent property conflicts using `StrictPropertyCheck`:
 
 ```ts
 import { create, type StrictPropertyCheck } from 'use-one';
-
-import { create, EventBus, eventBus } from 'use-one';
 
 const initialState = { count: 0 };
 const [use, store] = create(initialState);
@@ -315,26 +291,28 @@ const _actions = {
   decrement() {
     store.setState({ count: this.state.count - 1 });
   },
-  // setState: 1 // If you uncomment this line, the code below will throw an error.
 };
-const actions: StrictPropertyCheck<typeof _actions> = _actions;
 
+const actions: StrictPropertyCheck<typeof _actions> = _actions;
 export const countStore = Object.assign(actions, store);
 ```
 
-## API
+## API Reference
 
-- `create` - e.g: `create<Type>(initialState, Options?: {useEffect?: boolean, name?: string})`
-  if the options useEffect is false, will use useLayoutEffect
-  - returns `[useHook, store]`
-    - `store` methods:
-      - `.getState()` get the state
-      - `.setState(newState)` set the state
-      - `.forceUpdate()` force update
-      - `.subscribe(cb: (state) => {})` subscribe `.setState` update, return unsubscribe function
-      - `.syncState(newState)` sync state without update
-      - `.destroy` clear event
+### `create<Type>(initialState, options?)`
 
-## Boilerplate Code Generator
+Creates a new store with the following options:
+- `useEffect`: Boolean (default: true) - Uses `useEffect` when true, `useLayoutEffect` when false
+- `name`: String - Optional name for the store
 
-Check [use-one-templates](https://github.com/suhaotian/use-one-templates), it's very useful to create many share states in large application.
+Returns `[useHook, store]` where `store` provides:
+- `getState()`: Get current state
+- `setState(newState)`: Update state
+- `forceUpdate()`: Force component updates
+- `subscribe(cb: (state) => void)`: Subscribe to state changes
+- `syncState(newState)`: Update state without triggering updates
+- `destroy()`: Clean up store resources
+
+## Code Generation
+
+Visit [use-one-templates](https://github.com/suhaotian/use-one-templates) for boilerplate code generation tools, especially useful for managing multiple stores in larger applications.
