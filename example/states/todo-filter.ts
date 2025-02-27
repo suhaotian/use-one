@@ -29,9 +29,9 @@ const actions = {
   },
 };
 
+export const useTodoFilter = use;
 export const todoFilterStore = Object.assign(
   selectors,
   actions,
-  { use },
   store
 );

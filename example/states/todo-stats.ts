@@ -30,4 +30,5 @@ const actions = {
   },
 };
 
-export const todoStatsStore = Object.assign(selectors, actions, { use }, store);
+export const useTodoStats = use;
+export const todoStatsStore = Object.assign(selectors, actions, store);

@@ -37,4 +37,5 @@ const actions = {
   },
 };
 
-export const countStore = Object.assign(selectors, actions, { use }, store);
+export const useCount = use;
+export const countStore = Object.assign(selectors, actions, store);

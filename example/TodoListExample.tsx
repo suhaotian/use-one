@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { useState, useMemo } from 'react';
-import {
-  todoListStore,
-  TodoItemType,
-} from './states/todo-list';
+import { todoListStore, TodoItemType, useTodoList } from './states/todo-list';
 import {
   todoFilterStore,
   TodoFilterEnum,
+  useTodoFilter,
 } from './states/todo-filter';
 import {
   todoInputValueStore,
+  useTodoInputValue,
 } from './states/todo-input-value';
-import { todoStatsStore } from './states/todo-stats';
+import { todoStatsStore, useTodoStats } from './states/todo-stats';
 
 function useUpdate(): [number, Function] {
   const [count, setCount] = useState(0);
@@ -40,7 +39,7 @@ function TodoListStats() {
       // percentCompleted,
       formattedPercentCompleted,
     },
-  ] = todoStatsStore.use();
+  ] = useTodoStats();
 
   return (
     <ul>
@@ -53,17 +52,15 @@ function TodoListStats() {
 }
 
 function TodoListFilters() {
-  const [filter] = todoFilterStore.use();
+  const [filter] = useTodoFilter();
 
   return (
     <>
       Filter:
       <select
         value={filter}
-        onChange={e =>
-          todoFilterStore.updateFilter(
-            (e.target.value as any) as TodoFilterEnum
-          )
+        onChange={(e) =>
+          todoFilterStore.updateFilter(e.target.value as any as TodoFilterEnum)
         }
       >
         <option value={TodoFilterEnum['Show ALL']}>All</option>
@@ -75,14 +72,14 @@ function TodoListFilters() {
 }
 
 function TodoItemCreator() {
-  const [inputValue] = todoInputValueStore.use();
+  const [inputValue] = useTodoInputValue();
 
   return (
     <div>
       <input
         type="text"
         value={inputValue}
-        onChange={e => todoInputValueStore.changeValue(e.target.value)}
+        onChange={(e) => todoInputValueStore.changeValue(e.target.value)}
       />
       <button onClick={todoListStore.addItem}>Add</button>
     </div>
@@ -90,12 +87,12 @@ function TodoItemCreator() {
 }
 
 function List() {
-  todoFilterStore.use();
-  todoListStore.use();
+  useTodoFilter();
+  useTodoList();
 
   return (
     <>
-      {todoListStore.getFilterList().map(todoItem => (
+      {todoListStore.getFilterList().map((todoItem) => (
         <TodoItem key={todoItem.id} id={todoItem.id} />
       ))}
     </>
@@ -110,7 +107,7 @@ function useTodoItemSelector(id: number): [TodoItemType, Function] {
 }
 
 function TodoItem({ id }: { id: number }) {
-  todoListStore.use();
+  useTodoList();
 
   const [item, setUpdate] = useTodoItemSelector(id);
 
@@ -119,7 +116,7 @@ function TodoItem({ id }: { id: number }) {
       <input
         type="text"
         value={item.text}
-        onChange={e => {
+        onChange={(e) => {
           const updatedItem = {
             ...item,
             text: e.target.value,

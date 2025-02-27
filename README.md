@@ -38,11 +38,13 @@
 ## Installation
 
 **npm**
+
 ```bash
 npm install use-one --save
 ```
 
 **pnpm**
+
 ```bash
 pnpm install use-one
 ```
@@ -56,10 +58,9 @@ pnpm install use-one
 import { create } from 'use-one';
 
 const initialState = { count: 0 };
-const [use, store] = create(initialState);
+export const [use, store] = create(initialState);
 
 const actions = {
-  use,
   get state() {
     return store.getState();
   },
@@ -71,6 +72,7 @@ const actions = {
   },
 };
 
+export const useCount = use;
 export const countStore = Object.assign(actions, store);
 ```
 
@@ -79,11 +81,10 @@ export const countStore = Object.assign(actions, store);
 ```tsx
 // CountExample.tsx
 import * as React from 'react';
-import { countStore } from './stores/count';
+import { useCount, countStore } from './stores/count';
 
 const Counter = () => {
-  const [state] = countStore.use();
-  const { count } = state;
+  const [{ count }] = useCount();
 
   return (
     <div>
@@ -106,7 +107,7 @@ const Counter = () => {
 };
 
 const ShowCount = () => {
-  const [state] = countStore.use();
+  const [state] = useCount();
   return <span>Count: {state.count}</span>;
 };
 
@@ -139,7 +140,6 @@ const computed = {
 };
 
 const actions = {
-  use,
   produce(cb: (state: typeof initialState) => void) {
     store.setState(produce(cb));
   },
@@ -155,6 +155,7 @@ const actions = {
   },
 };
 
+export const useCount = use;
 export const countStore = Object.assign(actions, computed, store);
 ```
 
@@ -177,7 +178,6 @@ if (isClient) {
 }
 
 const actions = {
-  use,
   get state() {
     return store.getState();
   },
@@ -189,6 +189,7 @@ const actions = {
   },
 };
 
+export const useCount = use;
 export const countStore = Object.assign(actions, store);
 ```
 
@@ -198,12 +199,7 @@ To prevent hydration errors in SSR applications (Next.js, Remix, etc.):
 
 ```ts
 // store.ts
-import {
-  create,
-  persistStore,
-  wrapState,
-  onPersistReady,
-} from 'use-one';
+import { create, persistStore, wrapState, onPersistReady } from 'use-one';
 
 const initialState = wrapState({ count: 0 });
 const [use, store] = create(initialState);
@@ -217,7 +213,6 @@ onPersistReady(() => {
 });
 
 const actions = {
-  use,
   get state() {
     return store.getState();
   },
@@ -229,6 +224,7 @@ const actions = {
   },
 };
 
+export const useCount = use;
 export const countStore = Object.assign(actions, store);
 ```
 
@@ -281,7 +277,6 @@ const initialState = { count: 0 };
 const [use, store] = create(initialState);
 
 const _actions = {
-  use,
   get state() {
     return store.getState();
   },
@@ -294,6 +289,8 @@ const _actions = {
 };
 
 const actions: StrictPropertyCheck<typeof _actions> = _actions;
+
+export const useCount = use;
 export const countStore = Object.assign(actions, store);
 ```
 
@@ -302,10 +299,12 @@ export const countStore = Object.assign(actions, store);
 ### `create<Type>(initialState, options?)`
 
 Creates a new store with the following options:
+
 - `useEffect`: Boolean (default: true) - Uses `useEffect` when true, `useLayoutEffect` when false
 - `name`: String - Optional name for the store
 
 Returns `[useHook, store]` where `store` provides:
+
 - `getState()`: Get current state
 - `setState(newState)`: Update state
 - `forceUpdate()`: Force component updates

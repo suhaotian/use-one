@@ -26,9 +26,9 @@ const actions = {
   },
 };
 
+export const useTodoInputValue = use;
 export const todoInputValueStore = Object.assign(
   selectors,
   actions,
-  { use },
   store
 );

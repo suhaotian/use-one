@@ -22,10 +22,10 @@ const [use, store] = create<TodoListState>(initialState);
   }
 })();
 
+export const useTodoList = use;
 export const todoListStore = Object.assign(
   getActions(store, initialState),
   getSelectors(store, initialState),
-  { use },
   store
 );
 todoListStore.subscribe(() => {

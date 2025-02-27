@@ -4,7 +4,6 @@ const initialState = { count: 0 };
 const [use, store] = create(initialState);
 
 const _actions = {
-  use,
   get state() {
     return store.getState();
   },
@@ -18,4 +17,5 @@ const _actions = {
 };
 const actions: StrictPropertyCheck<typeof _actions> = _actions;
 
+export const useAdvancedType = use;
 export const advancedTypeStore = Object.assign(actions, store);

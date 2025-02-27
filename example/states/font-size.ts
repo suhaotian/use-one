@@ -22,4 +22,5 @@ export const actions = {
   },
 };
 
-export const fontSizeStore = Object.assign(selectors, actions, { use }, store);
+export const useFontSize = use;
+export const fontSizeStore = Object.assign(selectors, actions, store);
