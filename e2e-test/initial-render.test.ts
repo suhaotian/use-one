@@ -7,7 +7,7 @@ test.describe('rendering', () => {
   test('should work', async ({ page }) => {
     const log: any[] = [];
     await page.exposeFunction('onRender', (msg: any) => log.push(msg));
-    await page.goto('./initial-render', { waitUntil: 'commit' });
+    await page.goto('/', { waitUntil: 'commit' });
     await expect(page.getByText('TodoListExample example')).toBeVisible();
     await sleep(1000);
     expect(log).toHaveLength(1);

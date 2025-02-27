@@ -8,7 +8,7 @@ const sleep = async (ms: number) =>
 let handler: ReturnType<typeof spawn>;
 
 beforeAll(() => {
-  handler = spawn('cd next-example && node server.js', {
+  handler = spawn('cd next-example && PORT=5002 node server.js', {
     shell: true,
   });
   return sleep(5 * 1000);
@@ -26,7 +26,7 @@ afterAll(async () => {
 describe('should work with server/client components in next.js', () => {
   it('ok', async () => {
     // await fetch('http://localhost:3000/');
-    const text = await fetch('http://localhost:3000/').then((res) =>
+    const text = await fetch('http://localhost:5002/').then((res) =>
       res.text()
     );
     const $ = cheerio.load(text);

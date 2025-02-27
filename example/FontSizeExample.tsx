@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { fontSizeStore } from './states/font-size';
+import {  useFontSize } from './states/font-size';
 
 export function Text() {
-  const [fontSize] = fontSizeStore.use();
+  const [fontSize] = useFontSize();
 
   return <p style={{ fontSize }}>This text will increase in size too.</p>;
 }
 
 export function FontButton() {
-  const [fontSize, setFontSize] = fontSizeStore.use();
+  const [fontSize, setFontSize] = useFontSize();
   const fontSizeLabel = `${fontSize}px`;
 
   return (

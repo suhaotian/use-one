@@ -1,7 +1,8 @@
 // example
 import * as React from 'react';
 import {
-  countStore
+  countStore,
+  useCount
 } from './states/count';
 import { Fragment } from 'react';
 
@@ -38,7 +39,7 @@ const Counter = () => {
 };
 
 const ShowCount = () => {
-  countStore.use();
+  const [count] = useCount();
 
-  return <span>{countStore.count}</span>;
+  return <span>{count}</span>;
 };
