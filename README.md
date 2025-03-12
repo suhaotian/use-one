@@ -1,9 +1,12 @@
 # use-one: A simple state management lib for React.js
 
+use-one: A simple state management lib for React.js
+
 [![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
 [![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
 <a href="https://pkg-size.dev/use-one"><img src="https://pkg-size.dev/badge/install/29671" title="Install size for use-one"></a>
 <a href="https://pkg-size.dev/use-one"><img src="https://pkg-size.dev/badge/bundle/3173" title="Bundle size for use-one"></a>
+<a href="https://bundlephobia.com/package/use-one@1.6.0"><img src="https://badgen.net/bundlephobia/minzip/use-one" /></a>
 ![license](https://badgen.net/npm/license/use-one?color=green)
 
 # Introduction
