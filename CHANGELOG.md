@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### 2.0.0
+
+- Breaking: remove deprecated methods `createOne`(now just use `create`) / `replaceState` (just use `setState`) and `getUpdateCount` function
+- Chore: update README
+- Chore: add `server-only` and `@react-native-async-storage/async-storage` to optional peerDependencies
+
 ### 1.6.0
 
 - Replace bundler from `bunchee` to `tsup`

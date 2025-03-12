@@ -45,7 +45,6 @@ describe('it', () => {
     expect(t === 'hello useOne');
     textStore.destroy();
 
-    expect(textStore.getUpdateCount() === null);
     expect(textStore.getState() === null);
   });
 

@@ -47,7 +47,6 @@ export function create<T>(
         //
       };
     },
-    getUpdateCount: () => 0,
     destroy: () => {
       (_state as unknown) = null;
     },

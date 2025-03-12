@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "packageManager": "pnpm@9.12.3",
   "react-server": "./dist/index.react-server.mjs",
   "react-native": "./dist/index.react-native.mjs",
@@ -39,23 +39,19 @@
     "server-only": "^0.0.1"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "@react-native-async-storage/async-storage": "^2.1.2"
   },
   "peerDependenciesMeta": {
     "react": {
       "optional": true
+    },
+    "server-only": {
+      "optional": true
+    },
+    "@react-native-async-storage/async-storage": {
+      "optional": true
     }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
   },
   "devDependencies": {
     "jest": "^29.5.0",
@@ -81,7 +77,18 @@
     "@tsconfig/recommended": "^1.0.3",
     "isomorphic-fetch": "^3.0.0",
     "cheerio": "^1.0.0-rc.12",
-    "@react-native-async-storage/async-storage": "^1.23.1"
+    "@react-native-async-storage/async-storage": "^2.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "repository": {
     "type": "git",

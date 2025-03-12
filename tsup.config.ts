@@ -10,7 +10,7 @@ export default defineConfig({
   splitting: true,
   format: ['esm', 'cjs'],
   minify: true,
-  target: 'es2015',
+  target: 'esnext',
   dts: true,
   external: ['react', '@react-native-async-storage/async-storage', 'server-only']
 });

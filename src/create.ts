@@ -10,11 +10,6 @@ function getID() {
 
 export const eventBus = new EventBus();
 
-/**
- * @deprecated Please use `create`, `createOne` will remove in 2.0
- */
-export const createOne = create;
-
 export function create<T>(
   initialState: ReadonlyNonBasic<T>,
   options?: CreateOptions
@@ -36,9 +31,7 @@ export function create<T>(
 
   function emitUpdate() {
     if (isDestroy) {
-      console.warn(
-        `The state ${options?.name || EVENT_NAME} already destroyed`
-      );
+      // TODO warn
     }
     eventBus?.emit(EVENT_NAME, _state);
   }
@@ -82,20 +75,13 @@ export function create<T>(
 
   const store = {
     getState: () => _state,
-    /**
-     * @deprecated Please use `.setState`, `.replaceState` will remove in 2.0
-     */
-    replaceState: setState,
     setState,
     forceUpdate: emitUpdate,
     syncState,
     subscribe: (callback: (state: ReadonlyNonBasic<T>) => void) => {
       eventBus.on(EVENT_NAME, callback);
-      return () => {
-        eventBus.off(EVENT_NAME, callback);
-      };
+      return () => eventBus.off(EVENT_NAME, callback);
     },
-    getUpdateCount: () => updateCount,
     destroy: () => {
       eventBus.off(EVENT_NAME);
       isDestroy = true;
