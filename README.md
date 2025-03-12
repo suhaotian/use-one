@@ -1,6 +1,6 @@
-# use-one: A simple state management lib for React.js
+# Use-one.js
 
-use-one: A simple state management lib for React.js
+Use-one.js: A simple state management lib for React.js
 
 [![Test and Release](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml/badge.svg)](https://github.com/suhaotian/use-one/actions/workflows/test-release.yml)
 [![npm version](https://badgen.net/npm/v/use-one?color=green)](https://www.npmjs.com/package/use-one)
@@ -23,7 +23,7 @@ use-one: A simple state management lib for React.js
 
 # Table of Contents
 
-- [use-one: A simple state management lib for React.js](#use-one-a-simple-state-management-lib-for-reactjs)
+- [Use-one.js](#use-onejs)
 - [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
