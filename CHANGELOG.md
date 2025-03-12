@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.6.0
+
+- Replace bundler from `bunchee` to `tsup`
+
 ### 1.5.2
 
 - Add type `StrictPropertyCheck`, check [advanced-typescript-demo](https://github.com/suhaotian/use-one?tab=readme-ov-file#advanced-typescript-demo)

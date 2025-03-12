@@ -1,6 +1,6 @@
 {
   "name": "use-one",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "packageManager": "pnpm@9.12.3",
   "react-server": "./dist/index.react-server.mjs",
   "react-native": "./dist/index.react-native.mjs",
