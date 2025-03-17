@@ -11,7 +11,7 @@ Use-one.js: A simple state management lib for React.js
 
 # Introduction
 
-[`use-one`](/) is a lightweight state management library for React.js.
+[`use-one`](/) is a lightweight and simple state management library for React.js.
 
 **Features**
 
