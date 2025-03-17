@@ -39,7 +39,7 @@ export function create<T>(
   };
 
   function useOne() {
-    const [, setUpdateCount] = useState(0);
+    const [count, setUpdateCount] = useState(0);
 
     _useEffect(() => {
       const updater = () => setUpdateCount(++updateCount);
@@ -47,7 +47,7 @@ export function create<T>(
       return () => eventBus.off(EVENT_NAME, updater);
     }, []);
 
-    return [_state, setState] as const;
+    return [_state, setState, count] as const;
   }
 
   return [

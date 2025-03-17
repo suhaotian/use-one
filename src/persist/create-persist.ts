@@ -51,6 +51,6 @@ export function createPersist(options: CreateOptions) {
     
     const ready = useMemo(() => initedRef.current, [count]); // Removed redundant initedRef dependency
     
-    return [ready, clearItem] as const;
+    return [ready, clearItem, count] as const;
   };
 }
