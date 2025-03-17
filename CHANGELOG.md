@@ -2,7 +2,10 @@
 
 ### 2.0.0
 
-- Breaking: remove deprecated methods `createOne`(now just use `create`) / `replaceState` (just use `setState`) and `getUpdateCount` function
+- Feat: Add `update count` as third paramater
+- Breaking: remove deprecated method createOne(now just use create)
+- Breaking: remove deprecated method replaceState (just use setState)
+- Breaking: remove useless function getUpdateCount
 - Chore: update README
 - Chore: add `server-only` and `@react-native-async-storage/async-storage` to optional peerDependencies
 
