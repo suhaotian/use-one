@@ -12,7 +12,9 @@ export function create<T>(
   options?: CreateOptions
 ) {
   const _useEffect =
-    !options?.useEffect === false ? useEffect : useLayoutEffect;
+    options?.useEffect === undefined || options.useEffect
+      ? useEffect
+      : useLayoutEffect;
   const EVENT_NAME = getID();
   let updateCount = 0;
   let isDestroyed = false;
