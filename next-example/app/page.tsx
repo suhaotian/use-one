@@ -1,12 +1,12 @@
 'use client';
 
-import { countStore } from "./useCount";
+import { countStore, useCount } from "./useCount";
 import { Counter } from './Counter'
 import { usePersist } from 'use-one';
 import { useState } from "react";
 
 export default function Home() {
-  const [{ count },] = countStore.use();
+  const [{ count },] = useCount();
 
   const [state, setState] = useState({ a: 1, b: 2, c: [1] });
   const [isReady, clean] = usePersist<typeof state>({ key: '@__test-persist', getState: () => state, setState: (state) => setState(state) });

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
-import { countStore } from "./useCount";
+import { countStore, useCount } from "./useCount";
 import { getCount } from "./api";
 // import ServerProvider from "./server-provider";
 
@@ -19,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const count = await getCount();
-  const [, setCount] = countStore.use();
+  const [, setCount] = useCount();
   setCount(state => ({ ...state, count }))
 
   return (

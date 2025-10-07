@@ -1,5 +1,11 @@
 # CHANGELOG
 
+
+### 2.0.0-alpha.2
+
+- Feat(persist store): add `encode` and `decode` options 
+
+
 ### 2.0.0
 
 - Feat: Add `update count` as third paramater

@@ -177,6 +177,8 @@ if (isClient) {
     key: '@CACHE_KEY',
     debounce: 100, // Optional, defaults to 100ms
     transform: (state) => state, // Optional state transformer
+    encode: (state) => JSON.stringify(state), // Optional
+    decode: (state) => JSON.Parse(state), // Optional
   });
 }
 
@@ -212,6 +214,8 @@ onPersistReady(() => {
     key: '@CACHE_KEY',
     debounce: 100,
     transform: (state) => state,
+    encode: (state) => JSON.stringify(state), // Optional
+    decode: (state) => JSON.Parse(state), // Optional
   });
 });
 

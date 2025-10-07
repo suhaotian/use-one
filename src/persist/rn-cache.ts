@@ -1,21 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { Cache } from './get-persist';
 
-const RNCache = {
-  setItem(key: string, state: unknown) {
-    return AsyncStorage.setItem(key, JSON.stringify(state));
+const RNCache: Cache = {
+  setItem(key: string, state: string) {
+    return AsyncStorage.setItem(key, state);
   },
   async getItem(key: string) {
     const result = await AsyncStorage.getItem(key);
-    if (result) {
-      try {
-        return JSON.parse(result);
-      } catch (e) {
-        AsyncStorage.removeItem(key).catch(() => {
-          //
-        });
-      }
-    }
-    return null;
+    return result;
   },
   removeItem(key: string) {
     return AsyncStorage.removeItem(key);

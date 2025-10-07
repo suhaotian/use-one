@@ -1,10 +1,8 @@
 import { Store, eventBus } from '../create';
 
-const defaultTransform = (state: any) => state;
-
 export interface Cache {
-  setItem: (key: string, state: unknown) => Promise<void> | void;
-  getItem: (key: string) => Promise<any> | any;
+  setItem: (key: string, state: string) => Promise<void> | void;
+  getItem: (key: string) => Promise<string | null> | string | null;
   removeItem: (key: string) => Promise<void> | void;
 }
 
@@ -21,7 +19,7 @@ export function getPersistStore(storeCache: Cache, isClient: boolean) {
   function wrapState<T = any>(state: T) {
     return {
       ...state,
-      ready: isClient ? false : true,
+      ready: !isClient,
     };
   }
 
@@ -31,40 +29,52 @@ export function getPersistStore(storeCache: Cache, isClient: boolean) {
       key: string;
       debounce?: number;
       cache?: Cache;
+      encode?: (state: T) => string;
+      decode?: (data: string) => T;
       transform?: (state: T) => T;
     }
   ) {
     const cache = options?.cache || storeCache;
-    const transform = options?.transform || defaultTransform;
-    const result = await cache.getItem(options.key);
+    const transform = options?.transform || ((state) => state);
+    const encode = options?.encode || ((state) => JSON.stringify(state));
+    const decode = options?.decode || ((data: string) => JSON.parse(data));
+    const data = await cache.getItem(options.key);
 
-    store.setState((state: any) => {
-      return transform({
+    if (data !== null && data !== undefined) {
+      const state = transform(decode(data) as T);
+      store.setState((current: any) => ({
+        ...current,
         ...state,
-        ...(result || {}),
         ready: true,
-      });
-    });
+      }));
+    } else {
+      store.setState((current: any) => ({
+        ...current,
+        ready: true,
+      }));
+    }
 
-    const ms = options?.debounce === undefined ? 100 : options?.debounce;
-    const setItem = debounce((key: string, state: unknown) => {
-      cache.setItem(key, state);
+    const ms = options?.debounce ?? 100;
+    const setItem = debounce((key: string, state: T) => {
+      cache.setItem(key, encode(state));
     }, ms);
 
-    return store.subscribe((state: unknown) => {
+    const unsubscribe = store.subscribe((state: T) => {
       setItem(options.key, state);
     });
+
+    return unsubscribe;
   }
 
   return { wrapState, persistStore };
 }
 
-const key = 'persist';
+const PERSIST_KEY = 'persist';
 
 export function onPersistReady(fn: () => void) {
-  eventBus.on(key, fn);
+  eventBus.on(PERSIST_KEY, fn);
 }
 
 export function emitPersistReady() {
-  eventBus.emit(key);
+  eventBus.emit(PERSIST_KEY);
 }

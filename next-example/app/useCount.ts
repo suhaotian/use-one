@@ -8,7 +8,12 @@ console.log('isClient', isClient);
 isClient &&
   persistStore<typeof initialState>(store, {
     key: '@COUNTER',
-    transform: (state) => state,
+    encode(state) {
+      return btoa(JSON.stringify(state));
+    },
+    decode(state) {
+      return JSON.parse(atob(state));
+    },
   });
 
 const actions = {
